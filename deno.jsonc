@@ -1,0 +1,43 @@
+/**
+The official configuration file used by Amethyst Studio for all Deno projects.
+*/
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "checkJs": false,
+    "experimentalDecorators": true,
+    "lib": [
+      "deno.ns",
+      "deno.unstable",
+      "deno.worker",
+      "dom.asynciterable"
+    ],
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false
+  },
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 110,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "always"
+    }
+  }
+}
