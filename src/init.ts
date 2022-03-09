@@ -1,11 +1,47 @@
-import { dirname, fromFileUrl, resolve } from '../deps.ts';
 import { logger } from '../mod.ts';
 import { generate } from './generate.ts';
 import { InstallMode } from './util/args.ts';
 import { exists } from './util/exists.ts';
 import { git, GitHooks } from './util/git.ts';
 
-const __dirname = dirname(fromFileUrl(import.meta.url));
+const shim = 
+`#!/usr/bin/env sh
+
+if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
+  # Initialize the Debug Logger.
+  debug () {
+    if [ "$HOOK_DEBUG" = "1" ]; then
+      echo "git-hooked (debug) - $1"
+    fi
+  }
+  # Initialize the Notice Logger.
+  notice () {
+    if [ "$HOOK_DISABLE_NOTICE" = "0" ]; then
+      echo "git-hooked (notice) - $1"
+    fi
+  }
+
+  readonly hook_name="$(basename "$0")"
+  debug "Calling '$hook_name' ..."
+
+  if [ "$HOOK" = "0" ]; then
+    debug "Skipping the hook due to the environment variable 'HOOK' being set to 0."
+  fi
+
+  readonly SKIP_GIT_HOOKED_INIT="1"
+  export SKIP_GIT_HOOKED_INIT
+
+  sh -e "$0" "$@"
+  code="$?"
+
+  if [ "$code" != "0" ]; then
+    notice "The hook '$hook_name' exited with code '$code' (error)."
+    notice "Please review the output above to resolve the error. After that, try the git operation again."
+  fi
+  
+  exit "$code"
+fi
+`
 
 export async function initHooks(mode: InstallMode): Promise<void> {
   // Ensure that we are in a git repository.
@@ -38,9 +74,9 @@ export async function initHooks(mode: InstallMode): Promise<void> {
   }
   logger.detailed('Writing ./.git-hooks/_util/git-hooked.sh ...');
   if (mode === 'full_install') {
-    await Deno.copyFile(
-      resolve(__dirname, './git-hooked.sh'),
+    await Deno.writeFile(
       './.git-hooks/_util/git-hooked.sh',
+      new TextEncoder().encode(shim)
     );
   }
 
