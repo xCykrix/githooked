@@ -1,8 +1,9 @@
 
 install:
-	deno install
+	deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+	deno install --no-check=remote --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
 run:
-	deno run --no-check=remote --allow-run --allow-read --allow-write --config deno.jsonc mod.ts
+	git-hooked
 test:
 	deno test --no-check=remote --config deno.jsonc
 lint:

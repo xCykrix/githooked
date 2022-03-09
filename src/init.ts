@@ -4,8 +4,7 @@ import { InstallMode } from './util/args.ts';
 import { exists } from './util/exists.ts';
 import { git, GitHooks } from './util/git.ts';
 
-const shim = 
-`#!/usr/bin/env sh
+const shim = `#!/usr/bin/env sh
 
 if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
   # Initialize the Debug Logger.
@@ -41,7 +40,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
   
   exit "$code"
 fi
-`
+`;
 
 export async function initHooks(mode: InstallMode): Promise<void> {
   // Ensure that we are in a git repository.
@@ -76,7 +75,7 @@ export async function initHooks(mode: InstallMode): Promise<void> {
   if (mode === 'full_install') {
     await Deno.writeFile(
       './.git-hooks/_util/git-hooked.sh',
-      new TextEncoder().encode(shim)
+      new TextEncoder().encode(shim),
     );
   }
 

@@ -64,7 +64,7 @@ export async function updatePermission(
   // Throw an error if the state is expected to be granted.
   if (options.require && stat.state !== 'granted') {
     throw new Error(
-      'Failed to update the permission state. The permission was either rejected by the user or not available by Deno permission query.',
+      'Failed to update the permission state. The permission was either rejected by the user or not provided to Deno.',
     );
   }
 

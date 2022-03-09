@@ -1,8 +1,9 @@
 import { parse } from './deps.ts';
 import { initializePermissions } from './permission.ts';
 import { initHooks } from './src/init.ts';
-import { detect, InstallCommand, validate } from './src/util/args.ts';
+import { detect, CLICommand, validate } from './src/util/args.ts';
 import { Logger } from './src/util/logger.ts';
+import { deno } from "./src/util/run.ts";
 
 // Define the constants of the application.
 const version = '1.0.0';
@@ -34,6 +35,7 @@ const allowedArgs = [
 async function main(): Promise<void> {
   // Build the permission runtime for the software.
   const permissions = await initializePermissions([
+    { id: 'run.deno', descriptor: { name: 'run', command: 'deno' } },
     { id: 'run.git', descriptor: { name: 'run', command: 'git' } },
     { id: 'read.git', descriptor: { name: 'read', path: './.git/' } },
     {
@@ -84,22 +86,26 @@ async function main(): Promise<void> {
 
   // Process the state of the arguments. Detect invalid or incompatible arguments.
   logger.detailed('Processing user-provided arguments...');
-  const mode = detect((args._.shift() ?? 'install') as InstallCommand, args);
+  const mode = detect((args._.shift() ?? 'install') as CLICommand, args);
   logger.detailed(`Found selection mode as -> ${mode}`);
 
   // Handle the different modes.
   switch (mode) {
     case 'full_install':
     case 'dry_install': {
-      logger.detailed('Install mode selected. Continuing...');
+      logger.basic('Installing git-hooked to ./.git/ ...');
       await initHooks(mode);
       break;
     }
-    case 'run_script': {
-      logger.detailed('Run script mode selected. Continuing...');
-      const script = args._.shift() as string;
-      logger.detailed(`Found script to run as -> ${script}`);
-      // runScript(args._[1]);
+    case 'upgrade': {
+      logger.basic('Upgrading git-hooked installation via deno cli ...');
+      // > deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+      // > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
+      logger.detailed('Running deno cache --no-check=remote --reload ...');
+      await deno(['cache', '--no-check=remote', '--reload', 'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts']);
+      logger.detailed('Running deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts ...');
+      await deno(['install', '--no-check=remote', '--allow-run=deno,git', '--allow-write=./.git-hooks/', '--allow-read=./.git-hooks/,./.git/', '-f', '-n', 'git-hooked', 'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts']);
+      logger.basic('Upgrade of git-hooked installation completed.');      
       break;
     }
     case 'list_hooks_and_scripts':
@@ -135,15 +141,19 @@ Deno Git-Hooks Runner
   Register and configure the git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing development standards.
 
 INSTALL:
-  > deno install --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
-  > deno install --allow-run --allow-write --allow-read -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+  > deno install -f --no-check=remote --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+
+UPGRADE:
+  > deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+  > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
 
 USAGE:
   git-hooked [command] [options]
 
 COMMANDS
   install                        Install the git-hooked environment. This is selected by default.
-  run [script] [args]            Run the associated script name from the configuration. Useful for testing.
+  uninstall                      Remove the git-hooked environment and the associated git configuration changes. This will not remove individual scripts.
+  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest main branch release.
 
 OPTIONS:
   -h, --help                     Show this help message.

@@ -31,7 +31,7 @@ export function validate(
  * @param args The Deno {@link Args} to be used.
  * @returns - The install type to be used from {@link InstallMode}.
  */
-export function detect(command: InstallCommand, args: Args): InstallMode {
+export function detect(command: CLICommand, args: Args): InstallMode {
   // Parse for list-hooks and list-scripts before command check.
   if (args['list-hooks'] || args['l'] || args['list-scripts'] || args['s']) {
     if (
@@ -48,8 +48,8 @@ export function detect(command: InstallCommand, args: Args): InstallMode {
   }
 
   // Parse for the 'run' command.
-  if (command === 'run') {
-    return 'run_script';
+  if (command === 'uninstall') {
+    return 'uninstall';
   }
 
   // Fallback to 'install' command as default.
@@ -60,12 +60,13 @@ export function detect(command: InstallCommand, args: Args): InstallMode {
 }
 
 // Type definitions.
-export type InstallCommand = 'install' | 'run';
+export type CLICommand = 'install' | 'upgrade' | 'uninstall' ;
 
 export type InstallMode =
   | 'full_install'
   | 'dry_install'
-  | 'run_script'
+  | 'upgrade'
+  | 'uninstall'
   | 'list_hooks_and_scripts'
   | 'list_hooks'
   | 'list_scripts';
