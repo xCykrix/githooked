@@ -47,6 +47,11 @@ export function detect(command: CLICommand, args: Args): InstallMode {
     }
   }
 
+  // Parse for the 'upgrade' command.
+  if (command === 'upgrade') {
+    return 'upgrade';
+  }
+
   // Parse for the 'run' command.
   if (command === 'uninstall') {
     return 'uninstall';
