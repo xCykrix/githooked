@@ -19,7 +19,8 @@ export async function generate(hook: GitHooks): Promise<void> {
     const content = base.replace('{{COMMAND}}', `echo "Placeholder git-hook for ${hook}."\n\nexit 0`);
     await Deno.writeFile(
       `./.git-hooks/${hook}`,
-      new TextEncoder().encode(content)
+      new TextEncoder().encode(content),
+      {  mode: 0o755 }
     );
   }
 }
