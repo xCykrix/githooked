@@ -2,7 +2,7 @@ import { logger } from '../mod.ts';
 import { generate } from './generate.ts';
 import { InstallMode } from './util/args.ts';
 import { exists } from './util/exists.ts';
-import { git, GitHooks } from './util/git.ts';
+import { git, GitHooks } from './util/run.ts';
 
 const shim = `#!/usr/bin/env sh
 
