@@ -1,4 +1,6 @@
 import { parse } from './deps.ts';
+import { initializePermissions } from './permission.ts';
+import { initHooks } from './src/init.ts';
 import { detect, InstallCommand, validate } from './src/util/args.ts';
 import { Logger } from './src/util/logger.ts';
 
@@ -10,7 +12,6 @@ export const logger: Logger = new Logger();
 
 /** The allowed flags and their aliases. This is used by the {@link validate} function. */
 const allowedArgs = [
-  // Cli Arguments
   'h',
   'help',
   'c',
@@ -24,13 +25,39 @@ const allowedArgs = [
   'v',
   'quiet',
   'q',
-  'version'
-]
+  'version',
+];
 
 /**
  * The main logic of the script. This is where the magic happens.
  */
-function main(): void {
+async function main(): Promise<void> {
+  // Build the permission runtime for the software.
+  const permissions = await initializePermissions([
+    { id: 'run.git', descriptor: { name: 'run', command: 'git' } },
+    { id: 'read.git', descriptor: { name: 'read', path: './.git/' } },
+    {
+      id: 'read.git-hooks',
+      descriptor: { name: 'read', path: './.git-hooks/' },
+    },
+    {
+      id: 'write.git-hooks',
+      descriptor: { name: 'write', path: './.git-hooks/' },
+    },
+  ], {
+    request: true,
+    require: true,
+  });
+  if (permissions.error === true) {
+    logger.error(
+      `The following permission(s) were not available as expected. They may not be specified via the Deno cli, or the prompt may have been denied if used.`,
+    );
+    for (const denied of permissions.denied) {
+      logger.error(JSON.stringify(denied));
+    }
+    Deno.exit(128);
+  }
+
   // Convert and validate the Deno.args to a more useful format.
   const args = parse(Deno.args, {
     unknown: (arg, key) => validate(allowedArgs, arg, key),
@@ -63,10 +90,11 @@ function main(): void {
   // Handle the different modes.
   switch (mode) {
     case 'full_install':
-    case 'dry_install':
+    case 'dry_install': {
       logger.detailed('Install mode selected. Continuing...');
-      // initHooks(mode);
+      await initHooks(mode);
       break;
+    }
     case 'run_script': {
       logger.detailed('Run script mode selected. Continuing...');
       const script = args._.shift() as string;
@@ -75,7 +103,9 @@ function main(): void {
       break;
     }
     case 'list_hooks_and_scripts':
-      logger.detailed('List-hooks and list-scripts mode selected. Continuing...');
+      logger.detailed(
+        'List-hooks and list-scripts mode selected. Continuing...',
+      );
       // listHooks();
       // listScripts();
       break;
@@ -88,13 +118,16 @@ function main(): void {
       // listScripts();
       break;
     default:
-      logger.error('An unknown error has occurred. Exiting...', new Error('Unknown error'));
+      logger.error(
+        'An unknown error has occurred. Exiting...',
+        new Error('Unknown error'),
+      );
       break;
   }
 }
 
 /**
- * Show the usage banner.
+ * Show the command usage banner.
  */
 function usageBanner() {
   logger.always(`
@@ -104,6 +137,7 @@ Deno Git-Hooks Runner
 INSTALL:
   > deno install --allow-run=git --allow-write=./.git/ --allow-read=./.git-hooks/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
   > deno install --allow-run --allow-write --allow-read -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+
 USAGE:
   git-hooked [command] [options]
 
@@ -114,16 +148,26 @@ COMMANDS
 OPTIONS:
   -h, --help                     Show this help message.
   -c, --config [file]            Specify the Deno configuration file to use. Defaults to 'deno.json' and 'deno.jsonc' respectively.
-  --dry-run                      Print the commands that would be executed, but don't execute them.
+  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for parsing.
   -l, --list-hooks               List all supported git-hooks.
   -s, --list-scripts             List all local scripts that are mapped to a supported git-hook.
   -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
   -q, --quiet                    Disregard all non-error output. This takes precedence over verbose.
 
+EXIT CODES:
+  0                              Successfully executed based on the provided arguments.
+  4                              One or more arguments were invalid or incompatible.
+  16                             Exited due to being unable to locate or execute the 'git' command.
+  17                             Exited due to not being able to determine if the current directory is the top-level of a git repository.
+  128                            Exited due to insufficient Deno run permissions during startup permission resolution. Potentially declined a prompt?
+  129                            Exited due to insufficient Deno run permissions during runtime permission resolution. Potentially revoked permission?
   If no options are specified, the default behavior is to propogate to all supported git-hooks. This script will always override any existing git-hooks.
 `);
 }
 
+/**
+ * Show the version and information banner.
+ */
 function versionBanner() {
   logger.always(`
 Deno Git-Hooks Runner - git-hooked - Version v${version}.
@@ -135,7 +179,7 @@ The source code is available at: https://github.com/amethyst-studio/git-hooked
 Versioned with: https://deno.land/x/git-hooked
 
 Inspired by Husky for Node.js: https://github.com/typicode/husky
-`)
+`);
 }
 
 /**

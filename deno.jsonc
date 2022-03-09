@@ -34,7 +34,7 @@ The official configuration file used by Amethyst Studio for all Deno projects.
   "fmt": {
     "options": {
       "useTabs": false,
-      "lineWidth": 110,
+      "lineWidth": 80,
       "indentWidth": 2,
       "singleQuote": true,
       "proseWrap": "always"

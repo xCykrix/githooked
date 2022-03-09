@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+# Import the git-hooked wrapper to prepare the env and execute the script below.
+. "$(dirname "$0")/_util/git-hooked.sh"
+
+# Your script begins here.
+# The last command to run, or explicit "exit" commands, will determine the status code to Git.
+
+echo "Placeholder git-hook for pre-push."
+
+exit 0
+
