@@ -1,5 +1,5 @@
 import { exists } from './util/exists.ts';
-import { GitHooks } from './util/git.ts';
+import { GitHooks } from './util/run.ts';
 
 const base = `#!/usr/bin/env sh
 
