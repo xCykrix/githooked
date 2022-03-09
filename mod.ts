@@ -132,7 +132,7 @@ async function main(): Promise<void> {
 function usageBanner() {
   logger.always(`
 Deno Git-Hooks Runner
-  Register and configure the git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing standards.
+  Register and configure the git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing development standards.
 
 INSTALL:
   > deno install --allow-run=git --allow-write=./.git/ --allow-read=./.git-hooks/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts

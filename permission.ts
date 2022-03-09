@@ -17,7 +17,7 @@ export async function initializePermissions(
     stateLock.set(request.id, {
       state: 'prompt',
       descriptor: request.descriptor,
-      _ipx: null
+      _ipx: null,
     });
 
     // Request the permission via prompt or explicit definition check.
@@ -27,12 +27,12 @@ export async function initializePermissions(
       result.denied.push({
         state: 'denied',
         descriptor: request.descriptor,
-        _ipx: null
+        _ipx: null,
       });
       stateLock.set(request.id, {
         state: 'denied',
         descriptor: request.descriptor,
-        _ipx: null
+        _ipx: null,
       });
     });
   }
@@ -109,7 +109,7 @@ function resolve(id: string): PermissionRequestState {
     return {
       state: 'prompt',
       descriptor: request?.descriptor ?? null,
-      _ipx: request?._ipx ?? null
+      _ipx: request?._ipx ?? null,
     };
   }
 

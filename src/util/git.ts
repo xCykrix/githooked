@@ -99,4 +99,4 @@ export type GitHooks =
   | 'p4-prepare-changelist'
   | 'p4-post-changelist'
   | 'p4-pre-submit'
-  | 'post-index-change'
+  | 'post-index-change';
