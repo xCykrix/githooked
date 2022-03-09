@@ -8,5 +8,5 @@
 
 echo "Placeholder git-hook for pre-push."
 
-exit 0
+exit 1
 
