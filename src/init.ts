@@ -54,14 +54,16 @@ export async function initHooks(allowChanges: boolean): Promise<void> {
     Deno.exit(1);
   }
 
-  // Create the needed directories if they do not exists.
+  // Detect if upgrading or first installation.
   let upgrade = true;
   if (!await exists('./.git-hooks/')) {
     upgrade = false;
-    logger.detailed('Creating ./.git-hooks/ folder ...');
-    if (allowChanges) {
-      await Deno.mkdir('./.git-hooks/_util/', { recursive: true });
-    }
+  }
+
+  // Create the needed directories if they do not exists.
+  logger.detailed('Initializing ./.git-hooks/ folder if needed ...');
+  if (allowChanges) {
+    await Deno.mkdir('./.git-hooks/_util/', { recursive: true, mode: 0o755 }).catch(() => {});
   }
 
   // Bind the files and scripts needed to execute git-hooked.
