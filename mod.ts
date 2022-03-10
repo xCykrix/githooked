@@ -4,10 +4,10 @@ import { validate } from './src/util/args.ts';
 import { Logger } from './src/util/logger.ts';
 import { deno } from './src/util/run.ts';
 
-// Define the constants of the application.
-const version = '1.0.0';
+// Define the constants of the tool.
+const version = '0.0.1';
 
-// Define the state of the application.
+// Define the state of the logging util.
 export const logger: Logger = new Logger();
 
 /** The allowed flags and their aliases. This is used by the {@link validate} function. */
@@ -23,12 +23,14 @@ const allowedArgs = [
 ];
 
 /**
- * The main logic of the script. This is where the magic happens.
+ * The main logic of the tool. This is where the magic happens.
  */
 async function main(): Promise<void> {
-  // Build the permission runtime for the software.
-  logger.basic('If you are prompted, please allow the following permissions as they are required for this tool to function.');
-  logger.detailed('Permissions are now being resolved...');
+  // Build the permission state for the tool.
+  logger.detailed(
+    'If prompted, please allow the following permissions. They are required for this tool to function.',
+  );
+  logger.detailed('Permissions are now attempting to be resolved...');
   await grant({
     id: 'run.deno',
     descriptor: { name: 'run', command: 'deno' },
@@ -54,9 +56,11 @@ async function main(): Promise<void> {
     descriptor: { name: 'write', path: '.git-hooks' },
     options: { prompt: true, require: true },
   });
-  logger.detailed('Permissions have been resolved. The tool is ready for execution.')
+  logger.detailed(
+    'Permissions have been resolved. The tool is available for execution.',
+  );
 
-  // Convert and validate the Deno.args to a more useful format.
+  // Convert and validate the Deno.args to a more workable format.
   const args = parse(Deno.args, {
     unknown: (arg, key) => validate(allowedArgs, arg, key),
   });
@@ -65,61 +69,57 @@ async function main(): Promise<void> {
   if (args.verbose || args.v) logger.setState(true, true);
   if (args.quiet || args.q) logger.setState(false, false);
 
-  // If the user wants to see the help message, print it and exit.
-  if (args.help || args.h) {
-    usageBanner();
+  // If the user wants to see the help or version message, print it and exit.
+  if (args.help || args.h || args.version) {
+    if (args.version) versionBanner();
+    else usageBanner();
     Deno.exit(0);
   }
 
-  // If the user wants to see the version, print it and exit.
-  if (args.version) {
-    versionBanner();
-    Deno.exit(0);
-  }
+  // Print the small header.
+  logger.basic(
+    `githooked: v${version} - Git hooks for the Deno lifecycle. Inspired by Typicode's Husky.`,
+  );
+  logger.basic();
 
-  // Print the initial banner.
-  logger.basic(`Preparing to install the git-hooked environment...`);
-
-  // Handle the different modes.
+  // Handle the command specified.
   const command = args._.shift() ?? 'install';
   switch (command) {
+    case 'install': {
+      logger.basic('Installing githooked to the current workspace ...');
+      await initHooks(args['dry-run'] ? false : true);
+      break;
+    }
     case 'upgrade': {
-      logger.basic('Upgrading git-hooked installation via deno cli ...');
-      logger.detailed('Running: deno cache --no-check=remote --reload');
-      await deno([
-        'cache',
-        '--no-check=remote',
-        '--reload',
-        'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
-      ]);
-      logger.detailed(
-        'Running: deno install --no-check=remote [...] -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
+      logger.basic(
+        'Upgrading githooked installation via deno cli from deno.land ...',
       );
-      await deno([
-        'install',
-        '--no-check=remote',
-        '--allow-run=deno,git',
-        '--allow-write=./.git-hooks/',
-        '--allow-read=./.git-hooks/,./.git/',
-        '-f',
-        '-n',
-        'git-hooked',
-        'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
-      ]);
-      logger.basic('Upgrade of git-hooked has finished successfully.');
+      logger.detailed(
+        'Running: deno install -f --no-check=remote [...] https://deno.land/x/githooked/mod.ts',
+      );
+      if (!args['dry-run']) {
+        await deno([
+          'install',
+          '-f',
+          '--no-check=remote',
+          '--allow-run=deno,git',
+          '--allow-read=.git,.git-hooks',
+          '--allow-write=.git-hooks',
+          'https://deno.land/x/githooked/mod.ts',
+        ]);
+      }
       break;
     }
     case 'uninstall': {
-      logger.basic('Removing git-hooked from the current workspace ...');
+      logger.basic('Removing githooked from the current workspace ...');
+      /** TODO: Uninstallation of tooling. Relatively simple, just not yet available. */
       // await deinitHooks(args['dry-run'] ? false : true);
-      logger.basic('Removal of git-hooked has finished successfully.');
       break;
     }
     default: {
-      logger.basic('Installing git-hooked to the current workspace ...');
-      await initHooks(args['dry-run'] ? false : true);
-      logger.basic('Installation of git-hooked has finished successfully.');
-      break;
+      throw new Error(
+        `Unrecognized command: ${command}. Please specify one of the following: install, upgrade, uninstall.`,
+      );
     }
   }
 }
@@ -129,30 +129,32 @@ async function main(): Promise<void> {
  */
 function usageBanner() {
   logger.always(`
-Deno Git-Hooks Runner
-  Register and configure the git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing development standards.
+Deno Git Hook Tooling
+  Register and configure your git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing development standards.
 
 INSTALL:
-  > deno install -f --no-check=remote --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+  > deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts
 
 UPGRADE:
-  > git-hooked upgrade
+  > githooked upgrade
 
 USAGE:
-  git-hooked [command] [options]
+  githooked [command] [options]
 
 COMMANDS
-  install                        Install the git-hooked environment. Creates the '.git-hooked' folder and updates the localized scripts.
-  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest versioned release. We recommend running install after an upgrade.
-  uninstall                      Remove the git-hooked environment and the associated git configuration changes. This will not remove individual scripts or the '.git-hooked' folder.
+  install                        Install the githooked environment. Creates the '.git-hooked' folder and updates the localized scripts.
+  upgrade                        Upgrade the githooked cli from deno.land. This will install the latest versioned release. We recommend running install after an upgrade.
+  uninstall                      Remove the githooked environment and the associated git configuration changes. This will not remove individual scripts or the '.git-hooked' folder.
 
 OPTIONS:
   -h, --help                     Show this help message.
   -q, --quiet                    Disregard all non-error output. This takes precedence over verbose.
   -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
   --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for validation purposes.
+  --version                      Show the version, license, copyright, and acknowledgments information.
 
-If no options are specified, the default behavior is to install the default set of git hooks. This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer execute.
+If no options are specified, the default behavior is to install the default set of git hooks. 
+This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer be executed.
 `);
 }
 
@@ -161,15 +163,15 @@ If no options are specified, the default behavior is to install the default set 
  */
 function versionBanner() {
   logger.always(`
-Deno Git-Hooks Runner - git-hooked - Version v${version}.
+Deno Git-Hooks Runner - githooked - Version v${version}.
 
 Available under the MIT License. Copyright 2022 for Amethyst Studio on behalf of Samuel J Voeller (xCykrix).
 https://opensource.org/licenses/MIT
 
-The source code is available at: https://github.com/amethyst-studio/git-hooked
-Versioned with: https://deno.land/x/git-hooked
+The source code is available at: https://github.com/amethyst-studio/githooked
+Versioned with: https://deno.land/x/githooked
 
-Inspired by Husky for Node.js: https://github.com/typicode/husky
+Inspired by and loose port of Husky for Node.js: https://github.com/typicode/husky
 `);
 }
 

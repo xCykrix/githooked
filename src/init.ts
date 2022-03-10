@@ -41,35 +41,39 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
 fi
 `;
 
-export async function initHooks(execute: boolean): Promise<void> {
+export async function initHooks(allowChanges: boolean): Promise<void> {
   // Ensure that we are in a git repository.
-  // If the git command is not found, the application will exit.
+  // If the git command is not found, the application also will exit.
   await git(['rev-parse']);
 
   // Ensure that cwd is git top level.
   if (!await exists('./.git/')) {
     logger.error(
-      `The current directory is not a git repository. Please ensure that you are in the top level of a git repository. Code: 17`,
+      `The current directory is not a git repository. Please ensure that you are in the top level of a git repository.`,
     );
-    Deno.exit(17);
+    Deno.exit(1);
   }
 
   // Create the needed directories if they do not exists.
+  let upgrade = true;
   if (!await exists('./.git-hooks/')) {
+    upgrade = false;
     logger.detailed('Creating ./.git-hooks/ folder ...');
-    if (execute) await Deno.mkdir('./.git-hooks/_util/', { recursive: true });
+    if (allowChanges) {
+      await Deno.mkdir('./.git-hooks/_util/', { recursive: true });
+    }
   }
 
   // Bind the files and scripts needed to execute git-hooked.
-  logger.detailed('Writing ./.git-hooks/_util/.gitignore ...');
-  if (execute) {
+  logger.detailed('Writing to ./.git-hooks/_util/.gitignore ...');
+  if (allowChanges) {
     await Deno.writeFile(
       './.git-hooks/_util/.gitignore',
       new TextEncoder().encode('*'),
     );
   }
-  logger.detailed('Writing ./.git-hooks/_util/git-hooked.sh ...');
-  if (execute) {
+  logger.detailed('Writing to ./.git-hooks/_util/git-hooked.sh ...');
+  if (allowChanges) {
     await Deno.writeFile(
       './.git-hooks/_util/git-hooked.sh',
       new TextEncoder().encode(shim),
@@ -78,18 +82,29 @@ export async function initHooks(execute: boolean): Promise<void> {
 
   // Define the list of popular hooks.
   const hooks: GitHooks[] = [
-    'pre-commit',
     'prepare-commit-msg',
+    'pre-commit',
     'pre-push',
   ];
 
-  // Generate the hooks that are used frequently.
-  for (const hook of hooks) {
-    logger.detailed(`Touching ./.git-hooks/${hook} ...`);
-    if (execute) await generate(hook);
+  // Generate the hooks that are used frequently for a first install.
+  if (!upgrade) {
+    for (const hook of hooks) {
+      logger.basic(`Generating Example Hook: ./.git-hooks/${hook} ...`);
+      if (allowChanges) await generate(hook);
+    }
+  }
+
+  // Apply the correct permissions to the existing hooks.
+  const folders = await Deno.readDir('./.git-hooks/');
+  for await (const file of folders) {
+    if (file.isFile && !file.name.includes('.')) {
+      logger.detailed(`Setting chmod '0o755' to ./.git-hooks/${file.name} ...`);
+      if (allowChanges) await Deno.chmod(`./.git-hooks/${file.name}`, 0o755);
+    }
   }
 
   // Set the core.hooksPath to leverage ./.git-hooks/
   logger.detailed('Setting core.hooksPath to use ./.git-hooks/ ...');
-  if (execute) await git(['config', 'core.hooksPath', './.git-hooks/']);
+  if (allowChanges) await git(['config', 'core.hooksPath', './.git-hooks/']);
 }

@@ -1,6 +1,6 @@
 # Local Developer Scripts. Use these when configuring for local development.
 initialize:
-	deno install --no-check=remote --allow-run=deno,git --allow-read=.git-hooks,.git --allow-write=.git-hooks -f -n git-hooked ./mod.ts
+	deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts
 	git-hooked install -q
 upgrade:
 	deno cache --no-check=remote --reload ./mod.ts

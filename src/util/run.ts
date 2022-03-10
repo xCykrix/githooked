@@ -1,29 +1,13 @@
-import { check } from '../../deps.ts';
 import { logger } from '../../mod.ts';
 
 /**
  * Execute a deno command and wait for the status and output.
  *
- * @remarks
- *
- * This function will abort the application if run permissions for 'deno' are not available.
- * This function will abort the application if 'deno' is not available in path.
- *
  * @param command The command to execute as an array. Do not specify 'deno' as the first element.
+ * 
  * @returns The status and output of the command.
  */
 export async function deno(command: string[]): Promise<CLIResult> {
-  // Ensure that we have permission to execute the deno command.
-  if (!check('run.deno')) {
-    logger.error(
-      `The permission 'run.deno' is required to run the 'deno' command.`,
-    );
-    logger.error(
-      'Please run the application again with --allow-run=deno to resolve this error.',
-    );
-    Deno.exit(128);
-  }
-
   if (command[0] !== 'deno') {
     command.unshift('deno');
   }
@@ -53,33 +37,18 @@ export async function deno(command: string[]): Promise<CLIResult> {
       }'`,
       err as Error,
     );
-    Deno.exit(16);
+    Deno.exit(1);
   }
 }
 
 /**
  * Execute a git command and wait for the status and output.
  *
- * @remarks
- *
- * This function will abort the application if run permissions for 'git' are not available.
- * This function will abort the application if 'git' is not available in path.
- *
  * @param command The command to execute as an array. Do not specify 'git' as the first element.
+ * 
  * @returns The status and output of the command.
  */
 export async function git(command: string[]): Promise<CLIResult> {
-  // Ensure that we have permission to execute the git command.
-  if (!check('run.git')) {
-    logger.error(
-      `The 'run.git' permission is required to execute git commands.`,
-    );
-    logger.error(
-      'Please run the application again with --allow-run=git to resolve this error.',
-    );
-    Deno.exit(128);
-  }
-
   // Ensure the leading `git` is added to the command.
   if (command[0] !== 'git') {
     command.unshift('git');
@@ -110,11 +79,13 @@ export async function git(command: string[]): Promise<CLIResult> {
       }'`,
       err as Error,
     );
-    Deno.exit(16);
+    Deno.exit(1);
   }
 }
 
-// Interface definitions.
+// Define the Interfaces and Types.
+
+/** CLIResult */
 export interface CLIResult {
   proc: Deno.Process<{
     cmd: string[];
@@ -126,7 +97,7 @@ export interface CLIResult {
   stderr: string;
 }
 
-// Type defin
+/** GitHooks */
 export type GitHooks =
   | 'applypatch-msg'
   | 'pre-applypatch'

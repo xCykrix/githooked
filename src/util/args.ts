@@ -5,6 +5,7 @@ import { logger } from '../../mod.ts';
  *
  * @param arg The base argument prior to processing.
  * @param key The stripped down argument key.
+ *
  * @returns - Will return true if the argument is valid and allowed. Otherwise generate an error and exit with code 1.
  */
 export function validate(
@@ -17,9 +18,9 @@ export function validate(
       `Invalid argument was provided. Please check the previously executed command. Invalid at: '${arg}'`,
     );
     logger.always(
-      `Please use '--help' to see the available options to correct this issue. Code: 4`,
+      `Please use '--help' to see the available options to correct this issue.`,
     );
-    Deno.exit(4);
+    Deno.exit(1);
   }
   return true;
 }

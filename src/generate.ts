@@ -17,6 +17,11 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 
 `;
 
+/**
+ * Generates the template hook from above with a placeholder echo command as an example.
+ * 
+ * @param hook The name of the hook to generate.
+ */
 export async function generate(hook: GitHooks): Promise<void> {
   if (!await exists(`./.git-hooks/${hook}`)) {
     const content = base.replace(
@@ -26,7 +31,6 @@ export async function generate(hook: GitHooks): Promise<void> {
     await Deno.writeFile(
       `./.git-hooks/${hook}`,
       new TextEncoder().encode(content),
-      { mode: 0o755 },
     );
   }
 }
