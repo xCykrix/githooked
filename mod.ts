@@ -5,7 +5,7 @@ import { Logger } from './src/util/logger.ts';
 import { deno } from './src/util/run.ts';
 
 // Define the constants of the tool.
-const version = '0.0.1';
+const version = '0.0.2';
 
 // Define the state of the logging util.
 export const logger: Logger = new Logger();
