@@ -12,7 +12,7 @@ format:
 	deno fmt --config deno.jsonc
 build:
 	deno cache --no-check=remote --reload ./mod.ts
-	deno install --no-check=remote --allow-run=deno,git --allow-read=.git-hooks,.git --allow-write=.git-hooks -f -n git-hooked ./mod.ts
+	deno install --no-check=remote --allow-run=deno,git --allow-read=.git-hooks,.git --allow-write=.git-hooks -f -n githooked ./mod.ts
 test:
 	deno test --no-check=remote --config deno.jsonc
 all:
