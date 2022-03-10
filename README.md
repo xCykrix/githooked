@@ -58,8 +58,8 @@ export * as githooked from 'https://deno.land/x/githooked/mod.ts';
 2. This application is based in the cli, so in the same terminal as above type the commands below for information on the usage and the second for version information.
 
     ```bash
-    githooked --help
-    githooked --version
+    > githooked --help
+    > githooked --version
     ```
 
 ### Upgrading
