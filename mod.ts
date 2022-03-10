@@ -27,6 +27,8 @@ const allowedArgs = [
  */
 async function main(): Promise<void> {
   // Build the permission runtime for the software.
+  logger.basic('If you are prompted, please allow the following permissions as they are required for this tool to function.');
+  logger.detailed('Permissions are now being resolved...');
   await grant({
     id: 'run.deno',
     descriptor: { name: 'run', command: 'deno' },
@@ -52,6 +54,7 @@ async function main(): Promise<void> {
     descriptor: { name: 'write', path: '.git-hooks' },
     options: { prompt: true, require: true },
   });
+  logger.detailed('Permissions have been resolved. The tool is ready for execution.')
 
   // Convert and validate the Deno.args to a more useful format.
   const args = parse(Deno.args, {
@@ -82,8 +85,6 @@ async function main(): Promise<void> {
   switch (command) {
     case 'upgrade': {
       logger.basic('Upgrading git-hooked installation via deno cli ...');
-      // > deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
-      // > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
       logger.detailed('Running: deno cache --no-check=remote --reload');
       await deno([
         'cache',
@@ -141,21 +142,17 @@ USAGE:
   git-hooked [command] [options]
 
 COMMANDS
-  install                        Install the git-hooked environment. This is selected by default.
-  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest versioned release.
-  uninstall                      Remove the git-hooked environment and the associated git configuration changes. This will not remove individual scripts.
+  install                        Install the git-hooked environment. Creates the '.git-hooked' folder and updates the localized scripts.
+  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest versioned release. We recommend running install after an upgrade.
+  uninstall                      Remove the git-hooked environment and the associated git configuration changes. This will not remove individual scripts or the '.git-hooked' folder.
 
 OPTIONS:
   -h, --help                     Show this help message.
-  -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
   -q, --quiet                    Disregard all non-error output. This takes precedence over verbose.
-  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for parsing.
+  -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
+  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for validation purposes.
 
-EXIT CODES:
-  0                              Successfully executed based on the provided arguments.
-  4                              One or more arguments were invalid or incompatible.
-
-If no options are specified, the default behavior is to propogate to all supported git-hooks. This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer execute.
+If no options are specified, the default behavior is to install the default set of git hooks. This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer execute.
 `);
 }
 

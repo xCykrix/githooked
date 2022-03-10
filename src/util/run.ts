@@ -1,4 +1,4 @@
-import { check } from "../../deps.ts";
+import { check } from '../../deps.ts';
 import { logger } from '../../mod.ts';
 
 /**
