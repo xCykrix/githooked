@@ -19,4 +19,4 @@ all:
 	make lint
 	make format
 	make build
-	# make test
+	make test
