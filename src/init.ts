@@ -1,6 +1,5 @@
 import { logger } from '../mod.ts';
 import { generate } from './generate.ts';
-import { InstallMode } from './util/args.ts';
 import { exists } from './util/exists.ts';
 import { git, GitHooks } from './util/run.ts';
 
@@ -42,7 +41,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
 fi
 `;
 
-export async function initHooks(mode: InstallMode): Promise<void> {
+export async function initHooks(execute: boolean): Promise<void> {
   // Ensure that we are in a git repository.
   // If the git command is not found, the application will exit.
   await git(['rev-parse']);
@@ -58,21 +57,19 @@ export async function initHooks(mode: InstallMode): Promise<void> {
   // Create the needed directories if they do not exists.
   if (!await exists('./.git-hooks/')) {
     logger.detailed('Creating ./.git-hooks/ folder ...');
-    if (mode === 'full_install') {
-      await Deno.mkdir('./.git-hooks/_util/', { recursive: true });
-    }
+    if (execute) await Deno.mkdir('./.git-hooks/_util/', { recursive: true });
   }
 
   // Bind the files and scripts needed to execute git-hooked.
   logger.detailed('Writing ./.git-hooks/_util/.gitignore ...');
-  if (mode === 'full_install') {
+  if (execute) {
     await Deno.writeFile(
       './.git-hooks/_util/.gitignore',
       new TextEncoder().encode('*'),
     );
   }
   logger.detailed('Writing ./.git-hooks/_util/git-hooked.sh ...');
-  if (mode === 'full_install') {
+  if (execute) {
     await Deno.writeFile(
       './.git-hooks/_util/git-hooked.sh',
       new TextEncoder().encode(shim),
@@ -89,14 +86,10 @@ export async function initHooks(mode: InstallMode): Promise<void> {
   // Generate the hooks that are used frequently.
   for (const hook of hooks) {
     logger.detailed(`Touching ./.git-hooks/${hook} ...`);
-    if (mode === 'full_install') {
-      await generate(hook);
-    }
+    if (execute) await generate(hook);
   }
 
   // Set the core.hooksPath to leverage ./.git-hooks/
   logger.detailed('Setting core.hooksPath to use ./.git-hooks/ ...');
-  if (mode === 'full_install') {
-    await git(['config', 'core.hooksPath', './.git-hooks/']);
-  }
+  if (execute) await git(['config', 'core.hooksPath', './.git-hooks/']);
 }

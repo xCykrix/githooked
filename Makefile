@@ -1,7 +1,9 @@
 
 install:
-	deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
-	deno install --no-check=remote --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
+	deno cache --no-check=remote --reload ./mod.ts
+	deno install --no-check=remote --allow-run=deno,git --allow-read=./.git-hooks/,./.git/ --allow-write=./.git-hooks/ -f -n git-hooked ./mod.ts 
+upgrade:
+	deno cache --no-check=remote --reload ./mod.ts
 run:
 	git-hooked
 test:

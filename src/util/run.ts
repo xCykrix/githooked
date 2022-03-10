@@ -1,21 +1,20 @@
+import { check } from "../../deps.ts";
 import { logger } from '../../mod.ts';
-import { hasPermission } from '../../permission.ts';
 
 /**
  * Execute a deno command and wait for the status and output.
- * 
+ *
  * @remarks
- * 
+ *
  * This function will abort the application if run permissions for 'deno' are not available.
  * This function will abort the application if 'deno' is not available in path.
- * 
- * 
+ *
  * @param command The command to execute as an array. Do not specify 'deno' as the first element.
  * @returns The status and output of the command.
  */
 export async function deno(command: string[]): Promise<CLIResult> {
   // Ensure that we have permission to execute the deno command.
-  if (!hasPermission('run.deno')) {
+  if (!check('run.deno')) {
     logger.error(
       `The permission 'run.deno' is required to run the 'deno' command.`,
     );
@@ -71,7 +70,7 @@ export async function deno(command: string[]): Promise<CLIResult> {
  */
 export async function git(command: string[]): Promise<CLIResult> {
   // Ensure that we have permission to execute the git command.
-  if (!hasPermission('run.git')) {
+  if (!check('run.git')) {
     logger.error(
       `The 'run.git' permission is required to execute git commands.`,
     );

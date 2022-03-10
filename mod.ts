@@ -1,9 +1,8 @@
-import { parse } from './deps.ts';
-import { initializePermissions } from './permission.ts';
+import { grant, parse } from './deps.ts';
 import { initHooks } from './src/init.ts';
-import { detect, CLICommand, validate } from './src/util/args.ts';
+import { validate } from './src/util/args.ts';
 import { Logger } from './src/util/logger.ts';
-import { deno } from "./src/util/run.ts";
+import { deno } from './src/util/run.ts';
 
 // Define the constants of the application.
 const version = '1.0.0';
@@ -15,13 +14,7 @@ export const logger: Logger = new Logger();
 const allowedArgs = [
   'h',
   'help',
-  'c',
-  'config',
   'dry-run',
-  'list-hooks',
-  'l',
-  'list-scripts',
-  's',
   'verbose',
   'v',
   'quiet',
@@ -34,31 +27,31 @@ const allowedArgs = [
  */
 async function main(): Promise<void> {
   // Build the permission runtime for the software.
-  const permissions = await initializePermissions([
-    { id: 'run.deno', descriptor: { name: 'run', command: 'deno' } },
-    { id: 'run.git', descriptor: { name: 'run', command: 'git' } },
-    { id: 'read.git', descriptor: { name: 'read', path: './.git/' } },
-    {
-      id: 'read.git-hooks',
-      descriptor: { name: 'read', path: './.git-hooks/' },
-    },
-    {
-      id: 'write.git-hooks',
-      descriptor: { name: 'write', path: './.git-hooks/' },
-    },
-  ], {
-    request: true,
-    require: true,
+  await grant({
+    id: 'run.deno',
+    descriptor: { name: 'run', command: 'deno' },
+    options: { prompt: true, require: true },
   });
-  if (permissions.error === true) {
-    logger.error(
-      `The following permission(s) were not available as expected. They may not be specified via the Deno cli, or the prompt may have been denied if used.`,
-    );
-    for (const denied of permissions.denied) {
-      logger.error(JSON.stringify(denied));
-    }
-    Deno.exit(128);
-  }
+  await grant({
+    id: 'run.git',
+    descriptor: { name: 'run', command: 'git' },
+    options: { prompt: true, require: true },
+  });
+  await grant({
+    id: 'read.git',
+    descriptor: { name: 'read', path: '.git' },
+    options: { prompt: true, require: true },
+  });
+  await grant({
+    id: 'read.git-hooks',
+    descriptor: { name: 'read', path: '.git-hooks' },
+    options: { prompt: true, require: true },
+  });
+  await grant({
+    id: 'write.git-hooks',
+    descriptor: { name: 'write', path: '.git-hooks' },
+    options: { prompt: true, require: true },
+  });
 
   // Convert and validate the Deno.args to a more useful format.
   const args = parse(Deno.args, {
@@ -84,51 +77,49 @@ async function main(): Promise<void> {
   // Print the initial banner.
   logger.basic(`Preparing to install the git-hooked environment...`);
 
-  // Process the state of the arguments. Detect invalid or incompatible arguments.
-  logger.detailed('Processing user-provided arguments...');
-  const mode = detect((args._.shift() ?? 'install') as CLICommand, args);
-  logger.detailed(`Found selection mode as -> ${mode}`);
-
   // Handle the different modes.
-  switch (mode) {
-    case 'full_install':
-    case 'dry_install': {
-      logger.basic('Installing git-hooked to ./.git/ ...');
-      await initHooks(mode);
-      break;
-    }
+  const command = args._.shift() ?? 'install';
+  switch (command) {
     case 'upgrade': {
       logger.basic('Upgrading git-hooked installation via deno cli ...');
       // > deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
-      // > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
-      logger.detailed('Running deno cache --no-check=remote --reload ...');
-      await deno(['cache', '--no-check=remote', '--reload', 'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts']);
-      logger.detailed('Running deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts ...');
-      await deno(['install', '--no-check=remote', '--allow-run=deno,git', '--allow-write=./.git-hooks/', '--allow-read=./.git-hooks/,./.git/', '-f', '-n', 'git-hooked', 'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts']);
-      logger.basic('Upgrade of git-hooked installation completed.');      
+      // > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
+      logger.detailed('Running: deno cache --no-check=remote --reload');
+      await deno([
+        'cache',
+        '--no-check=remote',
+        '--reload',
+        'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
+      ]);
+      logger.detailed(
+        'Running: deno install --no-check=remote [...] -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
+      );
+      await deno([
+        'install',
+        '--no-check=remote',
+        '--allow-run=deno,git',
+        '--allow-write=./.git-hooks/',
+        '--allow-read=./.git-hooks/,./.git/',
+        '-f',
+        '-n',
+        'git-hooked',
+        'https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts',
+      ]);
+      logger.basic('Upgrade of git-hooked has finished successfully.');
       break;
     }
-    case 'list_hooks_and_scripts':
-      logger.detailed(
-        'List-hooks and list-scripts mode selected. Continuing...',
-      );
-      // listHooks();
-      // listScripts();
+    case 'uninstall': {
+      logger.basic('Removing git-hooked from the current workspace ...');
+      // await deinitHooks(args['dry-run'] ? false : true);
+      logger.basic('Removal of git-hooked has finished successfully.');
       break;
-    case 'list_hooks':
-      logger.detailed('List-hooks mode selected. Continuing...');
-      // listHooks();
+    }
+    default: {
+      logger.basic('Installing git-hooked to the current workspace ...');
+      await initHooks(args['dry-run'] ? false : true);
+      logger.basic('Installation of git-hooked has finished successfully.');
       break;
-    case 'list_scripts':
-      logger.detailed('List-scripts mode selected. Continuing...');
-      // listScripts();
-      break;
-    default:
-      logger.error(
-        'An unknown error has occurred. Exiting...',
-        new Error('Unknown error'),
-      );
-      break;
+    }
   }
 }
 
@@ -144,34 +135,27 @@ INSTALL:
   > deno install -f --no-check=remote --allow-run=git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
 
 UPGRADE:
-  > deno cache --no-check=remote --reload https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts
-  > deno install --no-check=remote --allow-run=deno,git --allow-write=./.git-hooks/ --allow-read=./.git-hooks/,./.git/ -f -n git-hooked https://raw.githubusercontent.com/amethyst-studio/git-hooked/main/mod.ts 
+  > git-hooked upgrade
 
 USAGE:
   git-hooked [command] [options]
 
 COMMANDS
   install                        Install the git-hooked environment. This is selected by default.
+  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest versioned release.
   uninstall                      Remove the git-hooked environment and the associated git configuration changes. This will not remove individual scripts.
-  upgrade                        Upgrade the git-hooked cli from the remote repository. This will install the latest main branch release.
 
 OPTIONS:
   -h, --help                     Show this help message.
-  -c, --config [file]            Specify the Deno configuration file to use. Defaults to 'deno.json' and 'deno.jsonc' respectively.
-  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for parsing.
-  -l, --list-hooks               List all supported git-hooks.
-  -s, --list-scripts             List all local scripts that are mapped to a supported git-hook.
   -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
   -q, --quiet                    Disregard all non-error output. This takes precedence over verbose.
+  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for parsing.
 
 EXIT CODES:
   0                              Successfully executed based on the provided arguments.
   4                              One or more arguments were invalid or incompatible.
-  16                             Exited due to being unable to locate or execute the 'git' command.
-  17                             Exited due to not being able to determine if the current directory is the top-level of a git repository.
-  128                            Exited due to insufficient Deno run permissions during startup permission resolution. Potentially declined a prompt?
-  129                            Exited due to insufficient Deno run permissions during runtime permission resolution. Potentially revoked permission?
-  If no options are specified, the default behavior is to propogate to all supported git-hooks. This script will always override any existing git-hooks.
+
+If no options are specified, the default behavior is to propogate to all supported git-hooks. This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer execute.
 `);
 }
 

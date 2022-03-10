@@ -1,4 +1,3 @@
-import { Args } from '../../deps.ts';
 import { logger } from '../../mod.ts';
 
 /**
@@ -24,54 +23,3 @@ export function validate(
   }
   return true;
 }
-
-/**
- * Detect the install type to be used by the application.
- *
- * @param args The Deno {@link Args} to be used.
- * @returns - The install type to be used from {@link InstallMode}.
- */
-export function detect(command: CLICommand, args: Args): InstallMode {
-  // Parse for list-hooks and list-scripts before command check.
-  if (args['list-hooks'] || args['l'] || args['list-scripts'] || args['s']) {
-    if (
-      (args['list-hooks'] || args['l']) && (args['list-scripts'] || args['s'])
-    ) {
-      return 'list_hooks_and_scripts';
-    }
-    if (args['list-hooks'] || args['l']) {
-      return 'list_hooks';
-    }
-    if (args['list-scripts'] || args['s']) {
-      return 'list_scripts';
-    }
-  }
-
-  // Parse for the 'upgrade' command.
-  if (command === 'upgrade') {
-    return 'upgrade';
-  }
-
-  // Parse for the 'run' command.
-  if (command === 'uninstall') {
-    return 'uninstall';
-  }
-
-  // Fallback to 'install' command as default.
-  if (args['dry-run']) {
-    return 'dry_install';
-  }
-  return 'full_install';
-}
-
-// Type definitions.
-export type CLICommand = 'install' | 'upgrade' | 'uninstall' ;
-
-export type InstallMode =
-  | 'full_install'
-  | 'dry_install'
-  | 'upgrade'
-  | 'uninstall'
-  | 'list_hooks_and_scripts'
-  | 'list_hooks'
-  | 'list_scripts';
