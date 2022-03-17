@@ -28,7 +28,7 @@ regexp="${regexp}"
 regexp="${regexp}$"
 
 # Validate the Commit Message.
-if [[ ! "$(head -1 $1)" =~ $regexp ]]; then
+if [[ ! "$(head -1 $1)" =~ ${regexp} ]]; then
   echo
   echo "Aborting the commit due to a syntax error relating to Conventional Commits."
   echo " - https://www.conventionalcommits.org/en/v1.0.0/"
