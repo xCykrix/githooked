@@ -62,7 +62,8 @@ async function main(): Promise<void> {
 
   // Convert and validate the Deno.args to a more workable format.
   const args = parse(Deno.args, {
-    unknown: (arg: string, key: string | undefined) => validate(allowed, arg, key),
+    unknown: (arg: string, key: string | undefined) =>
+      validate(allowed, arg, key),
   });
 
   // Set the logging mode from the arguments.

@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Configure the hook with these options.
-HOOK_DEBUG=1          # Set to 1 to enable debug mode. This will print additional output.
+HOOK_DEBUG=0          # Set to 1 to enable debug mode. This will print additional output.
 HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with an error code.
 
 # Import the git-hooked wrapper to prepare the env and execute the script below.
@@ -10,7 +10,37 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # Your script begins here.
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
-echo "Placeholder git-hook for prepare-commit-msg."
+echo "prepare-commit-msg: Validating the provided commit message prior to appending the commit to history."
+
+# From: https://dev.to/craicoverflow/enforcing-conventional-commits-using-git-hooks-1o5p
+types="build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test"
+keyword="close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved"
+scope_minlen=1
+scope_maxlen=16
+scope_regexp="[a-z0-9]{${scope_minlen},${scope_maxlen}}"
+subject_minlen=8
+subject_maxlen=120
+subject_regexp="[a-z0-9 ]{${subject_minlen},${subject_maxlen}}"
+
+# Build the Regular Expression.
+regexp="^(revert: )?(${types})(\(${scope_regexp}\))?!?: ${subject_regexp}"
+regexp="${regexp}"
+regexp="${regexp}$"
+
+# Validate the Commit Message.
+if [[ ! "$(head -1 $1)" =~ $regexp ]]; then
+  echo
+  echo "Aborting the commit due to a syntax error relating to Conventional Commits."
+  echo " - https://www.conventionalcommits.org/en/v1.0.0/"
+  echo " - https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional"
+  echo
+  echo " Having trouble with the format? Just not sure of how to commit correctly? Try https://commitlint.io/"
+  echo " Something weird happening? Use https://regexr.com/ with the following expression to validate your commit."
+  echo "  - Expression: /${regexp}/"
+  echo
+
+  exit 1
+fi
 
 exit 0
 

@@ -1,7 +1,7 @@
 import { exists } from './util/exists.ts';
 import { GitHooks } from './util/run.ts';
 
-const base = `#!/usr/bin/env sh
+const base = `#!/usr/bin/env bash
 
 # Configure the hook with these options.
 HOOK_DEBUG=0          # Set to 1 to enable debug mode. This will print additional output.

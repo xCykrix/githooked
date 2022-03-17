@@ -3,7 +3,7 @@ import { generate } from './generate.ts';
 import { exists } from './util/exists.ts';
 import { git, GitHooks } from './util/run.ts';
 
-const shim = `#!/usr/bin/env sh
+const shim = `#!/usr/bin/env bash
 
 if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
   # Initialize the Debug Logger.
@@ -29,7 +29,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
   readonly SKIP_GIT_HOOKED_INIT="1"
   export SKIP_GIT_HOOKED_INIT
 
-  sh -e "$0" "$@"
+  bash -e "$0" "$@"
   code="$?"
 
   if [ "$code" != "0" ]; then
