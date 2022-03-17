@@ -14,7 +14,6 @@ make task build
 make task test
 
 # Print the hook success message.
-echo
 echo "The state of the application has been validated successfully. Approving the push request."
 exit 0
 
