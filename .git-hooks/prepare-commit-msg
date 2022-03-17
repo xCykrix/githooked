@@ -10,9 +10,8 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # Your script begins here.
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
-echo "prepare-commit-msg: Validating the provided commit message prior to appending the commit to history."
-
 # From: https://dev.to/craicoverflow/enforcing-conventional-commits-using-git-hooks-1o5p
+# Build the Regular Expression Options.
 types="build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test"
 keyword="close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved"
 scope_minlen=1
@@ -22,25 +21,28 @@ subject_minlen=8
 subject_maxlen=120
 subject_regexp="[a-z0-9 ]{${subject_minlen},${subject_maxlen}}"
 
-# Build the Regular Expression.
+# Build the Regular Expression String.
 regexp="^(revert: )?(${types})(\(${scope_regexp}\))?!?: ${subject_regexp}"
 regexp="${regexp}"
 regexp="${regexp}$"
 
-# Validate the Commit Message.
+# Validate the commit message.
 if [[ ! "$(head -1 $1)" =~ ${regexp} ]]; then
+  # Print the hook error message.
   echo
-  echo "Aborting the commit due to a syntax error relating to Conventional Commits."
+  echo "The commit message was not formatted correctly. Rejecting the commit request."
   echo " - https://www.conventionalcommits.org/en/v1.0.0/"
   echo " - https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional"
   echo
-  echo " Having trouble with the format? Just not sure of how to commit correctly? Try https://commitlint.io/"
+  echo " Having trouble with the format? Just not sure of how to commit correctly? https://commitlint.io/"
   echo " Something weird happening? Use https://regexr.com/ with the following expression to validate your commit."
   echo "  - Expression: /${regexp}/"
   echo
-
   exit 1
 fi
 
+# Print the hook success message.
+echo
+echo "The commit message has validated successfully. Approving the commit request."
 exit 0
 

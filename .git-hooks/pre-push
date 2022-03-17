@@ -10,10 +10,11 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # Your script begins here.
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
-echo "pre-push: Validating the state of the application prior to push."
-
 make task build
 make task test
 
+# Print the hook success message.
+echo
+echo "The state of the application has been validated successfully. Approving the push request."
 exit 0
 
