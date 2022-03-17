@@ -7,11 +7,11 @@ import { deno } from './src/util/run.ts';
 // Define the constants of the tool.
 const version = '0.0.3';
 
-// Define the state of the logging util.
+// Define the state of the cli logger util.
 export const logger: Logger = new Logger();
 
-/** The allowed flags and their aliases. This is used by the {@link validate} function. */
-const allowedArgs = [
+/** The const of permitted cli flag values. This is used with the {@link validate} function to control the processing state of GitHooked. */
+const allowed = [
   'h',
   'help',
   'dry-run',
@@ -30,7 +30,7 @@ async function main(): Promise<void> {
   logger.detailed(
     'If prompted, please allow the following permissions. They are required for this tool to function.',
   );
-  logger.detailed('Permissions are now attempting to be resolved...');
+  logger.detailed('Permission requests are now being resoleved...');
   await grant({
     id: 'run.deno',
     descriptor: { name: 'run', command: 'deno' },
@@ -57,12 +57,12 @@ async function main(): Promise<void> {
     options: { prompt: true, require: true },
   });
   logger.detailed(
-    'Permissions have been resolved. The tool is available for execution.',
+    'Permission requests have been resolved. The tool is available for execution.',
   );
 
   // Convert and validate the Deno.args to a more workable format.
   const args = parse(Deno.args, {
-    unknown: (arg, key) => validate(allowedArgs, arg, key),
+    unknown: (arg: string, key: string | undefined) => validate(allowed, arg, key),
   });
 
   // Set the logging mode from the arguments.
@@ -111,7 +111,7 @@ async function main(): Promise<void> {
       break;
     }
     case 'uninstall': {
-      logger.basic('Removing githooked from the current workspace ...');
+      logger.basic('Uninstalling githooked from the current workspace ...');
       /** TODO: Uninstallation of tooling. Relatively simple, just not yet available. */
       // await deinitHooks(args['dry-run'] ? false : true);
       break;
@@ -129,8 +129,8 @@ async function main(): Promise<void> {
  */
 function usageBanner() {
   logger.always(`
-Deno Git Hook Tooling
-  Register and configure your git-hooks for arbitrary commands and user scripting. Useful for automation of lint, fmt, tests, and enforcing development standards.
+Deno 'githooked' - Install and manage Git hooks for the Deno lifecycle.
+  Useful for automation of lint, fmt, tests, and enforcing development standards.
 
 INSTALL:
   > deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts
@@ -153,7 +153,7 @@ OPTIONS:
   --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for validation purposes.
   --version                      Show the version, license, copyright, and acknowledgments information.
 
-If no options are specified, the default behavior is to install the default set of git hooks. 
+If no options are specified, the default behavior is to install the git-hooks handler. 
 This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer be executed.
 `);
 }
@@ -163,7 +163,7 @@ This script will never override any existing git-hooks, but hooks not created un
  */
 function versionBanner() {
   logger.always(`
-Deno Git-Hooks Runner - githooked - Version v${version}.
+Deno Git-Hooks Helper - githooked - Version v${version}.
 
 Available under the MIT License. Copyright 2022 for Amethyst Studio on behalf of Samuel J Voeller (xCykrix).
 https://opensource.org/licenses/MIT
@@ -171,7 +171,7 @@ https://opensource.org/licenses/MIT
 The source code is available at: https://github.com/amethyst-studio/githooked
 Versioned with: https://deno.land/x/githooked
 
-Inspired by and loose port of Husky for Node.js: https://github.com/typicode/husky
+Inspired by and a loose port of Husky for Node.js: https://github.com/typicode/husky
 `);
 }
 

@@ -4,7 +4,7 @@ import { logger } from '../../mod.ts';
  * Execute a deno command and wait for the status and output.
  *
  * @param command The command to execute as an array. Do not specify 'deno' as the first element.
- * 
+ *
  * @returns The status and output of the command.
  */
 export async function deno(command: string[]): Promise<CLIResult> {
@@ -45,7 +45,7 @@ export async function deno(command: string[]): Promise<CLIResult> {
  * Execute a git command and wait for the status and output.
  *
  * @param command The command to execute as an array. Do not specify 'git' as the first element.
- * 
+ *
  * @returns The status and output of the command.
  */
 export async function git(command: string[]): Promise<CLIResult> {

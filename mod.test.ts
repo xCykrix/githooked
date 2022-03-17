@@ -1,1 +1,1 @@
-// TODO: Write unit tests to ensure consistency across future versions.
+// NO-OP - Entrypoint is not unit testable.

@@ -63,7 +63,8 @@ export async function initHooks(allowChanges: boolean): Promise<void> {
   // Create the needed directories if they do not exists.
   logger.detailed('Initializing ./.git-hooks/ folder if needed ...');
   if (allowChanges) {
-    await Deno.mkdir('./.git-hooks/_util/', { recursive: true, mode: 0o755 }).catch(() => {});
+    await Deno.mkdir('./.git-hooks/_util/', { recursive: true, mode: 0o755 })
+      .catch(() => {});
   }
 
   // Bind the files and scripts needed to execute git-hooked.
