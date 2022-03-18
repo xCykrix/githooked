@@ -13,9 +13,11 @@ export function validate(
   key?: string,
 ): boolean {
   if (key === undefined || !allowed.includes(key)) {
-    throw new Error(
-      `Failed to validate the inbound argument from the parsed values. [Position: ${argument}]`,
-    );
+    if (argument === '' || argument.includes('-')) {
+      throw new Error(
+        `Failed to validate the inbound argument from the parsed values. [Position: ${argument}]`,
+      );
+    }
   }
   return true;
 }

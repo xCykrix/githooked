@@ -96,6 +96,17 @@ async function main(): Promise<void> {
         'Upgrading githooked installation via deno cli from deno.land ...',
       );
       logger.detailed(
+        'Running: deno cache --reload --no-check=remote https://deno.land/x/githooked/mod.ts',
+      );
+      if (!args['dry-run']) {
+        await deno([
+          'cache',
+          '--reload',
+          '--no-check=remote',
+          'https://deno.land/x/githooked/mod.ts',
+        ]);
+      }
+      logger.detailed(
         'Running: deno install -f --no-check=remote [...] https://deno.land/x/githooked/mod.ts',
       );
       if (!args['dry-run']) {
