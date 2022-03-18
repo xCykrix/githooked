@@ -38,5 +38,5 @@ jobs:
       - run: deno task lint
       - run: deno task fmt
       - run: deno task test
-      - run: desk task build
+      - run: deno task build
       - run: githooked
