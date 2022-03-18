@@ -35,7 +35,8 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: ${{ matrix.deno_version }}
-      - run: deno lint --config deno.jsonc
-      - run: deno test --no-check=remote --config deno.jsonc
-      - run: make build
+      - run: deno task lint
+      - run: deno task fmt
+      - run: deno task test
+      - run: desk task build
       - run: githooked
