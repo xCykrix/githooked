@@ -1,3 +1,4 @@
+import { Args } from 'https://deno.land/std@0.128.0/flags/mod.ts';
 import { grant, parse } from './deps.ts';
 import { initHooks } from './src/init.ts';
 import { validate } from './src/util/args.ts';
@@ -7,20 +8,8 @@ import { deno } from './src/util/run.ts';
 // Define the constants of the tool.
 const version = '0.0.3';
 
-// Define the state of the cli logger util.
+// Define the initial state of the cli logger util.
 export const logger: Logger = new Logger();
-
-/** The const of permitted cli flag values. This is used with the {@link validate} function to control the processing state of GitHooked. */
-const allowed = [
-  'h',
-  'help',
-  'dry-run',
-  'verbose',
-  'v',
-  'quiet',
-  'q',
-  'version',
-];
 
 /**
  * The main logic of the tool. This is where the magic happens.
@@ -30,7 +19,7 @@ async function main(): Promise<void> {
   logger.detailed(
     'If prompted, please allow the following permissions. They are required for this tool to function.',
   );
-  logger.detailed('Permission requests are now being resoleved...');
+  logger.detailed('Permission requests are now being resolved...');
   await grant({
     id: 'run.deno',
     descriptor: { name: 'run', command: 'deno' },
@@ -60,11 +49,22 @@ async function main(): Promise<void> {
     'Permission requests have been resolved. The tool is available for execution.',
   );
 
-  // Convert and validate the Deno.args to a more workable format.
-  const args = parse(Deno.args, {
-    unknown: (arg: string, key: string | undefined) =>
-      validate(allowed, arg, key),
-  });
+  // Convert and validate the Deno.args to a more workable format. Wraps in a try/catch to gracefully handle the error.
+  let args: Args | null = null;
+  try {
+    args = parse(Deno.args, {
+      unknown: (arg, key) => validate(options(false), arg, key),
+    });
+  } catch (err: unknown) {
+    logger.error(
+      'Failed to validate one or more provided flag(s) to the tool.',
+    );
+    logger.error(
+      'Please review the below error and use the "--help" or "--version" flag for more information and help.',
+      err as Error,
+    );
+    Deno.exit(1);
+  }
 
   // Set the logging mode from the arguments.
   if (args.verbose || args.v) logger.setState(true, true);
@@ -125,6 +125,100 @@ async function main(): Promise<void> {
   }
 }
 
+function commands(): string[] {
+  const commands = [
+    {
+      base: 'install',
+      usage: '',
+      description:
+        `Install the githooked environment. Creates the '.git-hooked' folder and updates the localized scripts.`,
+    },
+    {
+      base: 'upgrade',
+      usage: '',
+      description:
+        'Upgrade the githooked cli from deno.land. This will install the latest versioned release. We recommend running install after an upgrade.',
+    },
+    {
+      base: 'uninstall',
+      usage: '',
+      description:
+        `Remove the githooked environment and the associated git configuration changes. This will not remove individual scripts or the '.git-hooked' folder.`,
+    },
+  ];
+
+  const result: string[] = [];
+  for (const command of commands) {
+    result.push(
+      [
+        `  ${command.base} ${command.usage}`.padEnd(32, ' '),
+        command.description,
+      ].join(''),
+    );
+  }
+  return result;
+}
+
+function options(unified: boolean): string[] {
+  const options = [
+    { base: 'help', alias: ['h'], description: 'Show this help message.' },
+    {
+      base: 'quiet',
+      alias: ['q'],
+      description:
+        'Disregard all non-error output. Takes precedence over "--verbose" if provided.',
+    },
+    {
+      base: 'verbose',
+      alias: ['v'],
+      description:
+        'Print additional output of the steps or actions taken by the tool.',
+    },
+    {
+      base: 'dry-run',
+      alias: [],
+      description:
+        'Describe the actions that would normally be taken, without making actual changes.',
+    },
+    {
+      base: 'version',
+      alias: [],
+      description:
+        'Show the version, license, copyright, and acknowledgment message.',
+    },
+  ];
+
+  // Build the full string for the usage description.
+  const result: string[] = [];
+  if (unified) {
+    for (const option of options) {
+      const aliases: string[] = [];
+      for (const alias of option.alias) {
+        aliases.push(`-${alias}`);
+      }
+      result.push(
+        [
+          `  ${aliases.join(' ')} ${!(aliases.length > 0) ? '  ' : ''}${
+            !option.base.startsWith('--') ? '--' : ''
+          }${option.base}`.padEnd(
+            32,
+            ' ',
+          ),
+          option.description,
+        ].join(''),
+      );
+    }
+    return result;
+  }
+
+  // Parse out the flag values that allow argument parsing.
+  for (const option of options) {
+    result.push(option.base);
+    result.push(...option.alias);
+  }
+  return result;
+}
+
 /**
  * Show the command usage banner.
  */
@@ -143,16 +237,10 @@ USAGE:
   githooked [command] [options]
 
 COMMANDS
-  install                        Install the githooked environment. Creates the '.git-hooked' folder and updates the localized scripts.
-  upgrade                        Upgrade the githooked cli from deno.land. This will install the latest versioned release. We recommend running install after an upgrade.
-  uninstall                      Remove the githooked environment and the associated git configuration changes. This will not remove individual scripts or the '.git-hooked' folder.
+${commands().join('\n')}
 
 OPTIONS:
-  -h, --help                     Show this help message.
-  -q, --quiet                    Disregard all non-error output. This takes precedence over verbose.
-  -v, --verbose                  Print additional output of the steps taken by the script. Quiet takes precedence.
-  --dry-run                      Print the commands that would be executed that make changes, but don't execute them. Certain commands are executed for validation purposes.
-  --version                      Show the version, license, copyright, and acknowledgments information.
+${options(true).join('\n')}
 
 If no options are specified, the default behavior is to install the git-hooks handler. 
 This script will never override any existing git-hooks, but hooks not created under '.git-hooked' will no longer be executed.
