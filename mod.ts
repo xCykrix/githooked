@@ -176,7 +176,7 @@ function options(unified: boolean): string[] {
     },
     {
       base: 'dry-run',
-      alias: [],
+      alias: ['d'],
       description:
         'Describe the actions that would normally be taken, without making actual changes.',
     },

@@ -20,6 +20,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
     fi
   }
 
+  # Set and State the Hook
   readonly hook_name="$(basename "$0")"
   debug "Calling '$hook_name' ..."
 
@@ -27,6 +28,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
     debug "Skipping the hook due to the environment variable 'HOOK' being set to 0."
   fi
 
+  # Configure the hook to skip this call on the 
   readonly SKIP_GIT_HOOKED_INIT="1"
   export SKIP_GIT_HOOKED_INIT
 
@@ -43,9 +45,9 @@ fi
 `;
 
 /**
- * Initialize the ./.git-hooks/ folder and update the hook wrapper.
+ * Initialize the ./.git-hooks/ folder if needed, and update the util script.
  *
- * @param changes If changes are allowed. False means a dry-run installation.
+ * @param changes If changes are allowed. Setting this to false would be considered a installation.
  */
 export async function initHooks(changes: boolean): Promise<void> {
   // Ensure that we are in a git repository.
@@ -67,7 +69,7 @@ export async function initHooks(changes: boolean): Promise<void> {
   }
 
   // Create the needed directories if they do not exists.
-  logger.detailed('Initializing ./.git-hooks/ folder if needed ...');
+  logger.detailed('Creating the ./.git-hooks/ directory if needed ...');
   if (changes) {
     await Deno.mkdir('./.git-hooks/_util/', { recursive: true, mode: 0o755 })
       .catch(() => {});
@@ -89,26 +91,24 @@ export async function initHooks(changes: boolean): Promise<void> {
     );
   }
 
-  // Define the list of popular hooks.
-  const hooks: GitHooks[] = [
-    'prepare-commit-msg',
-    'pre-commit',
-    'pre-push',
-  ];
-
   // Generate the hooks that are used frequently for a first install.
   if (!upgrade) {
-    for (const hook of hooks) {
-      logger.basic(`Generating Example Hook: ./.git-hooks/${hook} ...`);
-      if (changes) await generate(hook);
-    }
+    const hooks = [
+      'prepare-commit-msg',
+      'pre-commit',
+      'pre-push',
+    ] as GitHooks[];
+    hooks.forEach(async (v) => {
+      logger.basic(`Writing to ./.git-hooks/${v} [Template] ...`);
+      if (changes) await generate(v as GitHooks);
+    });
   }
 
   // Apply the correct permissions to the existing hooks.
   const folders = await Deno.readDir('./.git-hooks/');
   for await (const file of folders) {
     if (file.isFile && !file.name.includes('.')) {
-      logger.detailed(`Setting chmod '0o755' to ./.git-hooks/${file.name} ...`);
+      logger.detailed(`Running chmod '0o755' to ./.git-hooks/${file.name} ...`);
       if (changes) await Deno.chmod(`./.git-hooks/${file.name}`, 0o755);
     }
   }
