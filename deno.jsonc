@@ -8,7 +8,7 @@ The official configuration file used by Amethyst Studio for all Deno projects.
     "lint": "deno lint --config deno.jsonc",
     "fmt": "deno fmt --check --config deno.jsonc",
     "build": "deno cache --no-check=remote --reload ./mod.ts && deno install --no-check=remote --allow-run=deno,git --allow-read=.git-hooks,.git --allow-write=.git-hooks -f -n githooked_dev ./mod.ts",
-    "test": "deno test --no-check=remote --config deno.jsonc"
+    "test": "deno test --no-check=remote --config deno.jsonc --allow-read --allow-write"
   },
   "compilerOptions": {
     "allowJs": false,

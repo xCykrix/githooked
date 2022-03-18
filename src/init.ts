@@ -3,6 +3,7 @@ import { generate } from './generate.ts';
 import { exists } from './util/exists.ts';
 import { git, GitHooks } from './util/run.ts';
 
+/** The const representation of the .git-hooks/_util/git-hooked.sh */
 const shim = `#!/usr/bin/env bash
 
 if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
@@ -41,7 +42,12 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
 fi
 `;
 
-export async function initHooks(allowChanges: boolean): Promise<void> {
+/**
+ * Initialize the ./.git-hooks/ folder and update the hook wrapper.
+ *
+ * @param changes If changes are allowed. False means a dry-run installation.
+ */
+export async function initHooks(changes: boolean): Promise<void> {
   // Ensure that we are in a git repository.
   // If the git command is not found, the application also will exit.
   await git(['rev-parse']);
@@ -62,21 +68,21 @@ export async function initHooks(allowChanges: boolean): Promise<void> {
 
   // Create the needed directories if they do not exists.
   logger.detailed('Initializing ./.git-hooks/ folder if needed ...');
-  if (allowChanges) {
+  if (changes) {
     await Deno.mkdir('./.git-hooks/_util/', { recursive: true, mode: 0o755 })
       .catch(() => {});
   }
 
   // Bind the files and scripts needed to execute git-hooked.
   logger.detailed('Writing to ./.git-hooks/_util/.gitignore ...');
-  if (allowChanges) {
+  if (changes) {
     await Deno.writeFile(
       './.git-hooks/_util/.gitignore',
       new TextEncoder().encode('*'),
     );
   }
   logger.detailed('Writing to ./.git-hooks/_util/git-hooked.sh ...');
-  if (allowChanges) {
+  if (changes) {
     await Deno.writeFile(
       './.git-hooks/_util/git-hooked.sh',
       new TextEncoder().encode(shim),
@@ -94,7 +100,7 @@ export async function initHooks(allowChanges: boolean): Promise<void> {
   if (!upgrade) {
     for (const hook of hooks) {
       logger.basic(`Generating Example Hook: ./.git-hooks/${hook} ...`);
-      if (allowChanges) await generate(hook);
+      if (changes) await generate(hook);
     }
   }
 
@@ -103,11 +109,11 @@ export async function initHooks(allowChanges: boolean): Promise<void> {
   for await (const file of folders) {
     if (file.isFile && !file.name.includes('.')) {
       logger.detailed(`Setting chmod '0o755' to ./.git-hooks/${file.name} ...`);
-      if (allowChanges) await Deno.chmod(`./.git-hooks/${file.name}`, 0o755);
+      if (changes) await Deno.chmod(`./.git-hooks/${file.name}`, 0o755);
     }
   }
 
   // Set the core.hooksPath to leverage ./.git-hooks/
   logger.detailed('Setting core.hooksPath to use ./.git-hooks/ ...');
-  if (allowChanges) await git(['config', 'core.hooksPath', './.git-hooks/']);
+  if (changes) await git(['config', 'core.hooksPath', './.git-hooks/']);
 }

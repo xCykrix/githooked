@@ -14,7 +14,6 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
 {{COMMAND}}
-
 `;
 
 /**
