@@ -16,13 +16,13 @@ types="build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test"
 keyword="close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved"
 scope_minlen=1
 scope_maxlen=16
-scope_regexp="[a-z0-9-]{${scope_minlen},${scope_maxlen}}"
+scope_regexp="[a-z0-9_.-]{${scope_minlen},${scope_maxlen}}"
 subject_minlen=8
 subject_maxlen=120
-subject_regexp="[a-z0-9_ -]{${subject_minlen},${subject_maxlen}}"
+subject_regexp="[a-z0-9_. -]{${subject_minlen},${subject_maxlen}}"
 
 # Build the Regular Expression String.
-regexp="^(revert: )?(${types})(\(${scope_regexp}\))?!?: ${subject_regexp}$"
+regexp="^(revert: )?(${types})(\(${scope_regexp}\))?!?: ${subject_regexp}[^.]{1,}$"
 
 # Validate the commit message.
 if [[ ! "$(head -1 $1)" =~ ${regexp} ]]; then

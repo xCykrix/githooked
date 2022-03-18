@@ -83,8 +83,6 @@ export async function git(command: string[]): Promise<CLIResult> {
   }
 }
 
-// Define the Interfaces and Types.
-
 /** CLIResult */
 export interface CLIResult {
   proc: Deno.Process<{
