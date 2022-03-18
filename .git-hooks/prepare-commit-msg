@@ -17,7 +17,7 @@ keyword="close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved"
 scope_minlen=1
 scope_maxlen=16
 scope_regexp="[a-z0-9_.-]{${scope_minlen},${scope_maxlen}}"
-subject_minlen=8
+subject_minlen=4
 subject_maxlen=120
 subject_regexp="[a-z0-9_. -]{${subject_minlen},${subject_maxlen}}"
 
