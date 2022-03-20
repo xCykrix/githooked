@@ -1,6 +1,7 @@
 import { Command, EnumType } from './deps.ts';
 import { install } from './src/install.ts';
 import { uninstall } from './src/uninstall.ts';
+import { upgrade } from './src/upgrade.ts';
 
 await new Command()
   .name('githooked')
@@ -43,7 +44,10 @@ await new Command()
     new Command()
       .description(
         'Upgrade the currently installed version of githooked.',
-      ),
+      )
+      .action((options) => {
+        upgrade(options);
+      }),
   )
   .command(
     'disable',
