@@ -16,4 +16,3 @@ deno task test
 # Print the hook success message.
 echo "The state of the application has been validated successfully. Approving the push request."
 exit 0
-

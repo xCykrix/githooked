@@ -5,12 +5,24 @@
  *
  * @returns If the file or directory exists.
  */
-export async function exists(path: string): Promise<boolean> {
+export async function exists(
+  path: string,
+): Promise<
+  boolean
+> {
   try {
-    await Deno.stat(path);
+    await Deno
+      .stat(
+        path,
+      );
     return true;
   } catch (err: unknown) {
-    if (err instanceof Deno.errors.NotFound) {
+    if (
+      err instanceof
+        Deno
+          .errors
+          .NotFound
+    ) {
       return false;
     }
     throw err;
