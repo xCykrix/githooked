@@ -3,6 +3,7 @@ import { install } from './src/install.ts';
 import { uninstall } from './src/uninstall.ts';
 import { upgrade } from './src/upgrade.ts';
 
+/** The LogWeight Enum */
 export enum LogWeight {
   'debug' = 0,
   'info' = 1,
@@ -10,9 +11,17 @@ export enum LogWeight {
   'error' = 3,
 }
 
+/**
+ * Check if the expected LogWeight is greater than or equal to the
+ *
+ * @param provided - The LogWeight from Cliffy.
+ * @param expected - The LogWeight expected to print the message.
+ *
+ * @returns A boolean based on if the message is allowed to be logged with the current options.
+ */
 export function checkLogLevel(
   provided: LogWeight,
-  expected: LogWeight,
+  expected: LogWeight = LogWeight.info,
 ): boolean {
   if (expected >= provided) {
     return true;
@@ -21,6 +30,7 @@ export function checkLogLevel(
   }
 }
 
+// Initialize the application. This is where the magic happens.
 await new Command()
   .name('githooked')
   .version('0.0.6')
