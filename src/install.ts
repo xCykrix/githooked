@@ -59,6 +59,7 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 {{COMMAND}}
 `;
 
+/** The install function. Hooked by cliffy. */
 export async function install(
   { logLevel }: {
     logLevel: 'debug' | 'info' | 'warn' | 'error';

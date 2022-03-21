@@ -1,9 +1,9 @@
 /**
- * Verify that a file or directory exists on disk.
+ * Check if a file or directory exists on disk.
  *
- * @param path The path to the file or directory.
+ * @param path - The path of the file or directory.
  *
- * @returns If the file or directory exists.
+ * @returns A boolean indicating if the provided path exists on disk.
  */
 export async function exists(
   path: string,

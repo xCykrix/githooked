@@ -2,15 +2,18 @@ import { checkLogLevel, LogWeight } from '../mod.ts';
 import { git } from './execute/git.ts';
 import { exists } from './util/exists.ts';
 
+/** The uninstall function. Hooked with cliffy. */
 export async function uninstall(
   { logLevel }: {
     logLevel: 'debug' | 'info' | 'warn' | 'error';
   },
 ): Promise<void> {
   // Post the start of install.
-  console.info(
-    'Removing githooked from the current workspace...',
-  );
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
+    console.info(
+      'Removing githooked from the current workspace...',
+    );
+  }
 
   // Validate the top-level git repository.
   if (!(await exists('./.git/'))) {

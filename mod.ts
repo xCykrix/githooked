@@ -14,10 +14,10 @@ export enum LogWeight {
 /**
  * Check if the expected LogWeight is greater than or equal to the
  *
- * @param provided - The LogWeight from Cliffy.
+ * @param provided - The LogWeight from the cliffy options.
  * @param expected - The LogWeight expected to print the message.
  *
- * @returns A boolean based on if the message is allowed to be logged with the current options.
+ * @returns A boolean indicating the message is permitted to be logged with the current options.
  */
 export function checkLogLevel(
   provided: LogWeight,
@@ -33,7 +33,7 @@ export function checkLogLevel(
 // Initialize the application. This is where the magic happens.
 await new Command()
   .name('githooked')
-  .version('0.0.6')
+  .version('0.0.7')
   .description(
     'Git hooks for the Deno lifecycle. Inspired by Typicode\'s Husky.',
   )

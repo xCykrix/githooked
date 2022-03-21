@@ -1,6 +1,7 @@
 import { checkLogLevel, LogWeight } from '../mod.ts';
 import { deno } from './execute/deno.ts';
 
+/** The upgrade function. Hooked with cliffy. */
 export async function upgrade(
   { logLevel }: {
     logLevel: 'debug' | 'info' | 'warn' | 'error';
