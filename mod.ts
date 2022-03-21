@@ -42,6 +42,9 @@ await new Command()
       global: true,
     },
   )
+  .action((options) => {
+    install(options);
+  })
   // Add the commands.
   .command(
     'enable',
