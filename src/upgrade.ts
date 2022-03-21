@@ -1,14 +1,20 @@
+import { checkLogLevel, LogWeight } from '../mod.ts';
 import { deno } from './execute/deno.ts';
 
 export async function upgrade(
-  { debug }: { debug: boolean },
+  { logLevel }: {
+    logLevel: 'debug' | 'info' | 'warn' | 'error';
+  },
 ): Promise<void> {
   // Post the start of install.
-  console.info(
-    'Upgrading the global installation of githooked...',
-  );
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
+    console.info(
+      'Upgrading the global installation of githooked...',
+    );
+  }
 
-  if (debug) {
+  // Update the cached version.
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Running: deno cache --reload --no-check=remote https://deno.land/x/githooked/mod.ts',
     );
@@ -20,7 +26,8 @@ export async function upgrade(
     'https://deno.land/x/githooked/mod.ts',
   ]);
 
-  if (debug) {
+  // Upgrade the installed version of githooked.
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Running: deno install -f --no-check=remote [...] https://deno.land/x/githooked/mod.ts',
     );
@@ -34,4 +41,10 @@ export async function upgrade(
     '--allow-write=.git-hooks',
     'https://deno.land/x/githooked/mod.ts',
   ]);
+
+  // Print the final messages.
+  console.info();
+  console.info(
+    'Done! Githooked has been upgraded to the latest public release version.',
+  );
 }

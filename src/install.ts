@@ -1,3 +1,4 @@
+import { checkLogLevel, LogWeight } from '../mod.ts';
 import { git, GitHooks } from './execute/git.ts';
 import { exists } from './util/exists.ts';
 
@@ -42,6 +43,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
 fi
 `;
 
+/** The const representation of a git hook as a template. */
 const hook = `#!/usr/bin/env bash
 
 # Configure the hook with these options.
@@ -58,12 +60,16 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 `;
 
 export async function install(
-  { debug }: { debug: boolean },
+  { logLevel }: {
+    logLevel: 'debug' | 'info' | 'warn' | 'error';
+  },
 ): Promise<void> {
   // Post the start of install.
-  console.info(
-    'Installing githooked in the current workspace...',
-  );
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
+    console.info(
+      'Installing githooked in the current workspace...',
+    );
+  }
 
   // Validate the top-level git repository.
   if (!(await exists('./.git/'))) {
@@ -87,7 +93,7 @@ export async function install(
   // Detect first installation vs upgrade.
   let upgrade = true;
   if (!(await exists('./.git-hooks/'))) {
-    if (debug) {
+    if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
       console.info(
         'Detected as a first time install of githooked. "./.git-hooks/" was not available in the workspace.',
       );
@@ -96,7 +102,7 @@ export async function install(
   }
 
   // Create the needed folders if they are not available.
-  if (debug) {
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info('Preparing the folder structure...');
   }
   await Deno.mkdir('./.git-hooks/_util/', {
@@ -105,7 +111,7 @@ export async function install(
   }).catch(() => {});
 
   // Write the files and scripts if they are not available.
-  if (debug) {
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Initializing the "./.git-hooks/_util/" files...',
     );
@@ -121,7 +127,7 @@ export async function install(
 
   // Initialize default hooks for the first time installation.
   if (!upgrade) {
-    if (debug) {
+    if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
       console.info(
         'Initializing the "./.git-hooks/" git-hook templates for first-time installation...',
       );
@@ -145,7 +151,7 @@ export async function install(
   }
 
   // Apply the correct permissions to the existing hooks.
-  if (debug) {
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Ensuring the correct permissions are set for the current hooks...',
     );
@@ -153,7 +159,7 @@ export async function install(
   const hooks = await Deno.readDir('./.git-hooks/');
   for await (const hook of hooks) {
     if (hook.isFile && !hook.name.includes('.')) {
-      if (debug) {
+      if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
         console.info(
           `Running chmod '0o755' to "./.git-hooks/${hook.name}"...`,
         );
@@ -163,13 +169,14 @@ export async function install(
   }
 
   // Set the core.hooksPath to use our hooks.
-  if (debug) {
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Setting core.hooksPath to use "./.git-hooks/"...',
     );
   }
   await git(['config', 'core.hooksPath', './.git-hooks/']);
 
+  // Print the final messages.
   console.info();
   console.info(
     'Done! Githooked has been installed to the current workspace. Try running the command below to see the hooks in action!',

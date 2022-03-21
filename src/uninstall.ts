@@ -1,8 +1,11 @@
+import { checkLogLevel, LogWeight } from '../mod.ts';
 import { git } from './execute/git.ts';
 import { exists } from './util/exists.ts';
 
 export async function uninstall(
-  { debug }: { debug: boolean },
+  { logLevel }: {
+    logLevel: 'debug' | 'info' | 'warn' | 'error';
+  },
 ): Promise<void> {
   // Post the start of install.
   console.info(
@@ -29,7 +32,7 @@ export async function uninstall(
   });
 
   // Set the core.hooksPath to use our hooks.
-  if (debug) {
+  if (checkLogLevel(LogWeight[logLevel], LogWeight.info)) {
     console.info(
       'Setting core.hooksPath to default value...',
     );
