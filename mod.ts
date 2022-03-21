@@ -17,7 +17,7 @@ export enum LogWeight {
  * @param provided - The LogWeight from the cliffy options.
  * @param expected - The LogWeight expected to print the message.
  *
- * @returns A boolean indicating the message is permitted to be logged with the current options.
+ * @returns A boolean indicating if the message is permitted to be logged with the current options.
  */
 export function checkLogLevel(
   provided: LogWeight,

@@ -1,7 +1,7 @@
 /**
  * Execute a git command and wait for the status and output.
  *
- * @param command The command to execute as an array. Do not specify 'git' as the first element.
+ * @param command = The command to execute as an array. Do not specify 'git' as the first element.
  *
  * @returns The status and output of the command.
  */
