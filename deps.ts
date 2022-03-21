@@ -1,24 +1,21 @@
-// std exports
-// flags
-export { parse } from 'https:/deno.land/std@0.128.0/flags/mod.ts';
-export type { Args } from 'https:/deno.land/std@0.128.0/flags/mod.ts';
+/** https://deno.land/std/flags/mod.ts - flags */
+export { parse } from 'https:/deno.land/std@0.130.0/flags/mod.ts';
+export type { Args } from 'https:/deno.land/std@0.130.0/flags/mod.ts';
 
-// path
+/** https://deno.land/std/path/mod.ts - path */
 export {
   dirname,
   fromFileUrl,
   resolve,
-} from 'https:/deno.land/std@0.128.0/path/mod.ts';
+} from 'https:/deno.land/std@0.130.0/path/mod.ts';
 
-// x exports
-
-// cliffy
+/** https://deno.land/x/cliffy/command/mod.ts - cliffy */
 export {
   Command,
   EnumType,
 } from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
 
-// permissions_manager
+/** https:/deno.land/x/permissions_manager/mod.ts - permission_manager */
 export {
   check,
   grant,
