@@ -36,16 +36,19 @@ With these as our backend technologies:
 
 ## Getting Started
 
-Getting started is as simple as dropping dropping our import or
-installing a cli tool. Below are the steps for this application.
+Getting started is as simple as leveraging your respective
+platform's import or simply running a command in the terminal.
 
 ### Prerequisites
 
 You'll obviously need the starting components of your project.
 This guide assumes that you already have an underlying project
-with Deno and `deno` installed and ready to use.
+with Deno and `deno` installed and ready to use. Optionally, you
+can actually use this tool for any project! Simply include the
+installation and execution within the initialization of the
+project files for development.
 
-This project is officially compatible with Deno `v1.19.0` or
+This project is officially compatible with Deno `v1.20.1` or
 higher. Earlier versions of Deno may work, and likely do, but
 are not officially supported and will not be delved into deeply
 for support should issues arise. We attempt to leverage new
@@ -54,17 +57,8 @@ backwards compatability is not always possible.
 
 ### Installation
 
-<!--
-1. Import the library via TypeScript from the remote url. You can find the latest version at <https://deno.land/x/githooked/mod.ts>. You'll want to pin to the latest version available (eg. https://deno.land/x/githooked@v0.0.1/mod.ts for the first version) to ensure your production environment is stable from changes.
-
-```ts
-// deps.ts (change export to import if you aren't using a single file for libraries)
-// Pin the latest version instead of using the URL below! Deno will warn you about this if your IDE is configured.
-export * as githooked from 'https://deno.land/x/githooked/mod.ts';
--->
-
-1. Install the tool via the `deno` cli command below. You can
-   also install it directly from GitHub!
+1. Install the tool via the `deno` command. You can also install
+   it directly from GitHub if you would prefer.
 
    ```bash
    # From deno.land
@@ -73,9 +67,9 @@ export * as githooked from 'https://deno.land/x/githooked/mod.ts';
    > deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://raw.githubusercontent.com/amethyst-studio/githooked/main/mod.ts
    ```
 
-2. This application is based in the cli, so in the same terminal
-   as above type the commands below for information on the usage
-   and the second for version information.
+2. This application is based in the terminal, so in the same
+   terminal as above type the commands below for information on
+   the usage and the second for version information.
 
    ```bash
    > githooked --help
@@ -125,7 +119,7 @@ Some tips for the smooth flow of contribution:
    contributions.
 2. Please make sure you check your spelling and grammar and
    ensure that your code is clean and formatted to the project
-   standard (Airbnb).
+   standard (Deno's built-in fmt).
 3. Ensure that you create an individual pull request for each
    suggestion. Lumping large changes together will require you
    to rework them into individual changes.
