@@ -37,6 +37,7 @@ jobs:
           deno-version: ${{ matrix.deno_version }}
       - run: deno task lint
       - run: deno task fmt
-      - run: deno task test
       - run: deno task build
+      - run: deno task test
+      - run: deno task install_dev
       - run: githooked_dev
