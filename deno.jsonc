@@ -3,7 +3,7 @@ The official configuration file used by Amethyst Studio for all Deno projects.
 */
 {
   "tasks": {
-    "initialize": "deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts && githooked install -q",
+    "initialize": "deno install -f --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts && githooked install",
     "upgrade": "deno cache --no-check=remote --reload ./mod.ts",
     "lint": "deno lint --config deno.jsonc",
     "fmt": "deno fmt --check --config deno.jsonc",

@@ -1,4 +1,10 @@
-import { Command, EnumType } from './deps.ts';
+import {
+  Command,
+  description,
+  EnumType,
+  name,
+  version,
+} from './deps.ts';
 import { install } from './src/install.ts';
 import { uninstall } from './src/uninstall.ts';
 import { upgrade } from './src/upgrade.ts';
@@ -32,11 +38,9 @@ export function checkLogLevel(
 
 // Initialize the application. This is where the magic happens.
 await new Command()
-  .name('githooked')
-  .version('0.0.7')
-  .description(
-    'Git hooks for the Deno lifecycle. Inspired by Typicode\'s Husky.',
-  )
+  .name(name)
+  .version(version)
+  .description(description)
   // Add the type validation.
   .type(
     'log-level',

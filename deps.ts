@@ -1,3 +1,9 @@
+/** Systematic information related to the project. */
+export const name = 'githooked';
+export const description =
+  'Git hooks for the Deno lifecycle. Inspired by Typicode\'s Husky.';
+export const version = '0.1.1';
+
 /** https://deno.land/std/flags/mod.ts - flags */
 export { parse } from 'https:/deno.land/std@0.130.0/flags/mod.ts';
 export type { Args } from 'https:/deno.land/std@0.130.0/flags/mod.ts';
