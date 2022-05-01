@@ -165,7 +165,11 @@ export async function install(
           `Running chmod '0o755' to "./.git-hooks/${hook.name}"...`,
         );
       }
-      await Deno.chmod(`./.git-hooks/${hook.name}`, 0o755);
+      await Deno.chmod(`./.git-hooks/${hook.name}`, 0o755).catch((err) => {
+        console.info(
+          'Skipped chmod. Windows was detected.',
+        );
+      });
     }
   }
 
