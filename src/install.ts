@@ -1,6 +1,6 @@
 import { checkLogLevel, LogWeight } from '../mod.ts';
-import { git, GitHooks } from './execute/git.ts';
 import { exists } from './util/exists.ts';
+import { git, GitHooks } from './execute/git.ts';
 
 /** The const representation of the .git-hooks/_util/git-hooked.sh */
 const init = `#!/usr/bin/env bash
@@ -27,7 +27,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
     debug "Skipping the hook due to the environment variable 'HOOK' being set to 0."
   fi
 
-  # Configure the hook to skip this call on the 
+  # Configure the hook to skip this call on the
   readonly SKIP_GIT_HOOKED_INIT="1"
   export SKIP_GIT_HOOKED_INIT
 
@@ -38,7 +38,7 @@ if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
     notice "The hook '$hook_name' exited with code '$code' (error)."
     notice "Please review the output above to resolve the error. After that, try the git operation again."
   fi
-  
+
   exit "$code"
 fi
 `;
@@ -165,11 +165,12 @@ export async function install(
           `Running chmod '0o755' to "./.git-hooks/${hook.name}"...`,
         );
       }
-      await Deno.chmod(`./.git-hooks/${hook.name}`, 0o755).catch((err) => {
-        console.info(
-          'Skipped chmod. Windows was detected.',
-        );
-      });
+      await Deno.chmod(`./.git-hooks/${hook.name}`, 0o755)
+        .catch(() => {
+          console.info(
+            'Skipped chmod. Windows was detected.',
+          );
+        });
     }
   }
 
