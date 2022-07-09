@@ -188,6 +188,6 @@ export async function install(
     'Done! Githooked has been installed to the current workspace. Try running the command below to see the hooks in action!',
   );
   console.info(
-    '> git add ./.git-hooked/ && git commit -m "build: add githooked to the workspace"',
+    '> git add .git-hooks/ && git commit -m "build: add githooked to the workspace"',
   );
 }
