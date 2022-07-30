@@ -1,0 +1,69 @@
+{
+  "tasks": {
+    // Tooling Scripts
+    "initialize": "deno task githooked && deno task dmm",
+    "githooked": "deno run --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
+    "dmm": "deno run --no-check=remote --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='deps.ts' --allow-write='deps.ts' https://deno.land/x/dmm/mod.ts update",
+    "update": "deno task dmm && deno cache --no-check=remote --reload ./deps.ts",
+    // Code Quality Control Scripts
+    "enforce-cq": "deno task lint && deno task fmt && deno task test",
+    "lint": "deno lint",
+    "fmt": "deno fmt --check",
+    "test": "deno test --no-check -A"
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "deno.unstable",
+      "deno.worker",
+      "dom.asynciterable"
+    ],
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "checkJs": false,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": [
+        "ban-untagged-todo",
+        "camelcase",
+        "default-param-last",
+        "eqeqeq",
+        "explicit-function-return-type",
+        "explicit-module-boundary-types",
+        "no-await-in-loop",
+        "no-const-assign",
+        "no-eval",
+        "prefer-ascii"
+      ]
+    }
+  },
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 64,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "always"
+    }
+  }
+}
