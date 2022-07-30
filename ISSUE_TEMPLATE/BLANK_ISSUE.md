@@ -9,5 +9,5 @@ labels:
 
 ---
 
-We are assuming that you are an expert user. Please follow our
-templates unless you know what you are doing.
+We are assuming that you are an expert user. Please follow our templates unless
+you know what you are doing.
