@@ -11,6 +11,8 @@ cp -r "./${TEMP_DIR}/CODE_OF_CONDUCT.md" "./CODE_OF_CONDUCT.md"
 cp -r "./${TEMP_DIR}/CONTRIBUTING.md" "./CONTRIBUTING.md"
 cp -r "./${TEMP_DIR}/SECURITY.md" "./SECURITY.md"
 cp -r "./${TEMP_DIR}/SUPPORT.md" "./SUPPORT.md"
+cp -r "./${TEMP_DIR}/.editorconfig" "./.editorconfig"
+cp -r "./${TEMP_DIR}/.gitattributes" "./.gitattributes"
 cp -r "./${TEMP_DIR}/UPDATE_TEMPLATE.sh" "./UPDATE_TEMPLATE.sh"
 
 # Remove the UPDATE_STATE_LOCK_X1 dir.
@@ -24,6 +26,8 @@ git add CONTRIBUTING.md
 git add SECURITY.md
 git add SUPPORT.md
 git add UPDATE_TEMPLATE.sh
+git add .editorconfig
+git add .gitattributes
 git commit -m 'chore(meta): update cross-organization meta documents'
 
 # Notice.
