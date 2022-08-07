@@ -1,6 +1,27 @@
-import { CLI, MainCommand } from './deps.ts';
+import { CLI, MainCommand, Subcommand } from './deps.ts';
+import { Install } from './lib/install.ts';
 
 class Main extends MainCommand {
+  public override signature = 'githooked';
+
+  public override subcommands = [
+    InstallCommand,
+  ];
+}
+
+class InstallCommand extends Subcommand {
+  public override signature = 'install';
+
+  public override options = {
+    '--debug, -d':
+      'Provide additional output useful for troubleshooting.',
+  };
+
+  /** Call Githooked Installer. */
+  public override async handle(): Promise<void> {
+    /** Process the Installation. */
+    await Install.update(!!this.option('debug'));
+  }
 }
 
 const cli = new CLI({
