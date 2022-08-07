@@ -10,6 +10,6 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # Your script begins here.
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
-echo "Placeholder git-hook for ${v}."
+echo "Placeholder git-hook for pre-push."
 
 exit 0

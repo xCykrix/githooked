@@ -72,7 +72,7 @@ export class Install {
           new TextEncoder().encode(
             hook.replace(
               '{{COMMAND}}',
-              'echo "Placeholder git-hook for ${v}."\n\nexit 0',
+              `echo "Placeholder git-hook for ${v}."\n\nexit 0`,
             ),
           ),
         );
