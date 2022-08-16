@@ -1,28 +1,18 @@
 # githooked - Amethyst
 
-[Tool/Deno] Manage git-hooks across your team with
-cross-platform support and mobility. Comfortably integrates with
-git to allow custom scripting.
+[Tool/Deno] Manage git-hooks across your team with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting.
 
 ## Installation, Configuration, and Deployment
 
-Please refer to the [Wiki Pages](./wiki) for the setup and
-update processes, if available. The README does not contain this
-information.
+Please refer to the [Wiki Pages](./wiki) for the setup and update processes, if available. The README does not contain this information.
 
 ## Contributing
 
-Contributions are always welcome to all of our projects. Each
-project in our organization is defined using a [A/B] format in
-our description. You can find the reference guide in our
+Contributions are always welcome to all of our projects. Each project in our organization is defined using a [A/B] format in our description. You can find the reference guide in our
 [Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md).
 
-Please ensure that you have reviewed and agree to our
-[Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md)
-and
-[Code of Conduct](https://github.com/amethyst-studio/.github/blob/main/.github/CODE_OF_CONDUCT.md).
-By submitting an issue or pull request, you are agreeing to each
-respectively.
+Please ensure that you have reviewed and agree to our [Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md) and
+[Code of Conduct](https://github.com/amethyst-studio/.github/blob/main/.github/CODE_OF_CONDUCT.md). By submitting an issue or pull request, you are agreeing to each respectively.
 
 ## Acknowledgements and Technology Usage
 
@@ -38,12 +28,11 @@ Source Control:
 
 Software Usage:
 
-- ...
+- [Deno](https://deno.land/)
 
 ## Contributors / Users
 
-- [@xCykrix](https://github.com/xCykrix) - Last Known Champion /
-  Maintainer
+- [@xCykrix](https://github.com/xCykrix) - Last Known Champion / Maintainer
 
 ## License
 
@@ -51,7 +40,4 @@ Software Usage:
 
 ## Template and Updates
 
-This project uses our 'meta' template to maintain
-cross-organizational information. To update this, please run the
-`UPDATE_TEMPLATE.sh` shell script during maintenance and
-updates.
+This project uses our 'meta' template to maintain cross-organizational information. To update this, please run the `UPDATE_TEMPLATE.sh` shell script during maintenance and updates.
