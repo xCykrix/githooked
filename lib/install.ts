@@ -10,21 +10,25 @@ export class Install {
   /**
    * Update githooked scripting and permissions.
    */
-  public static async update(debug?: boolean): Promise<void> {
+  public static async update(
+    cwd: string,
+    debug?: boolean,
+  ): Promise<void> {
     this.debug = debug ?? false;
-
     if (this.debug) {
       console.info('Updating "githooked" structure.');
     }
 
-    if (!(await exists('./.git/'))) {
+    // Validate git repository.
+    if (!(await exists(`${cwd}/.git/`))) {
       console.error(
         'Failed to update "./.git-hooks". The current working path is not a valid git repository.',
       );
       return Deno.exit(-1);
     }
 
-    await git(['rev-parse']).catch((err) => {
+    // Check rev-parse to ensure repository is safe to work with.
+    await git(cwd, ['rev-parse', 'HEAD^']).catch((err) => {
       console.error(
         'The current working path is not a stable git repository.',
       );
@@ -32,33 +36,39 @@ export class Install {
       return Deno.exit(-1);
     });
 
-    if (!(await exists('./.git-hooks/'))) {
+    // Check if '.git-hooks' exists for initialize vs update.
+    if (!(await exists(`${cwd}/.git-hooks/`))) {
       console.info(
         'Initializing "./.git-hooks" for the current working path.',
       );
       this.installed = false;
     }
 
+    // Create git-hooks util folder.
     if (this.debug) console.info('Preparing "./.git-hooks".');
-    await Deno.mkdir('./.git-hooks/_util/', {
+    await Deno.mkdir(`${cwd}/.git-hooks/_util/`, {
       recursive: true,
       mode: 0o755,
     }).catch((err) => {
+      // LCOV_EXCL_START
       console.error(
         'Failed to mkdir at "./.git-hooks/_util/".',
       );
       console.error(err);
       return Deno.exit(-1);
     });
+
+    // Write the gitignore and init script.
     await Deno.writeFile(
-      './.git-hooks/_util/.gitignore',
+      `${cwd}/.git-hooks/_util/.gitignore`,
       new TextEncoder().encode('*'),
     );
     await Deno.writeFile(
-      './.git-hooks/_util/git-hooked.sh',
+      `${cwd}/.git-hooks/_util/git-hooked.sh`,
       new TextEncoder().encode(init),
     );
 
+    // First-time installation?
     if (!this.installed) {
       if (this.debug) {
         console.info(
@@ -66,26 +76,28 @@ export class Install {
         );
       }
 
+      // Inject placeholder for each hook.
       getHooks().forEach(async (v) => {
         await Deno.writeFile(
-          `./.git-hooks/${v}`,
+          `${cwd}/.git-hooks/${v}`,
           new TextEncoder().encode(
             hook.replace(
               '{{COMMAND}}',
-              `echo "Placeholder git-hook for ${v}."\n\nexit 0`,
+              `# echo "Placeholder git-hook for ${v}."\n\nexit 0`,
             ),
           ),
         );
       });
     }
 
+    // Update permissions for hooks and scripts.
     if (this.debug) {
       console.info(
         'Updating "./.git-hooks" to required permissions.',
       );
     }
     for await (
-      const hook of (await Deno.readDir('./.git-hooks/'))
+      const hook of (await Deno.readDir(`${cwd}/.git-hooks/`))
     ) {
       if (hook.isFile && !hook.name.includes('.')) {
         if (this.debug) {
@@ -93,7 +105,10 @@ export class Install {
             `Running: chmod 755 ./.git-hooks/${hook.name}`,
           );
         }
-        await Deno.chmod(`./.git-hooks/${hook.name}`, 0o755)
+        await Deno.chmod(
+          `${cwd}/.git-hooks/${hook.name}`,
+          0o755,
+        )
           .catch((err) => {
             console.error(
               'Unable to update file permissions. Please review error and attempt to run githooked again. Windows is not supported without unix emulation.',
@@ -104,16 +119,21 @@ export class Install {
       }
     }
 
+    // Set the hooksPath.
     if (this.debug) {
       console.info(
         'Setting "core.hooksPath" to use "./.git-hooks".',
       );
     }
-    await git(['config', 'core.hooksPath', './.git-hooks/']);
+    await git(cwd, [
+      'config',
+      'core.hooksPath',
+      './.git-hooks/',
+    ]);
 
-    console.info();
+    // Initialization has been completed.
     console.info(
-      'Installed "githooked" to the current working path.',
+      'Initialized "githooked" in the current working path.',
     );
   }
 }

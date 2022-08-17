@@ -5,7 +5,10 @@
  *
  * @returns The status and output of the command.
  */
-export async function git(command: string[]): Promise<{
+export async function git(
+  cwd: string,
+  command: string[],
+): Promise<{
   proc: Deno.Process<{
     cmd: string[];
     stdout: 'piped';
@@ -25,12 +28,14 @@ export async function git(command: string[]): Promise<{
     cmd: command,
     stdout: 'piped',
     stderr: 'piped',
+    cwd,
   });
   const status = await proc.status();
   const stdout = new TextDecoder().decode(await proc.output());
   const stderr = new TextDecoder().decode(
     await proc.stderrOutput(),
   );
+  proc.close();
 
   // Send the response to the caller.
   return {

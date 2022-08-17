@@ -2,44 +2,59 @@
   "tasks": {
     // Tooling Scripts
     "initialize": "deno task githooked && deno task dmm",
+    "update": "deno task dmm && deno cache --no-check=remote --reload ./deps.ts",
+
+    // Wrapped Scripts for Tooling
     "githooked": "deno run --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
     "dmm": "deno run --no-check=remote --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='deps.ts' --allow-write='deps.ts' https://deno.land/x/dmm/mod.ts update",
-    "update": "deno task dmm && deno cache --no-check=remote --reload ./deps.ts",
-    // Code Quality Control Scripts
-    "enforce-cq": "deno task lint && deno task fmt && deno task test",
+
+    // Code Quality Scripts
+    "enforce-cq": "deno task lint && deno task fmt && deno task test && deno task coverage",
+
+    // Wrappers for Code Quality
     "lint": "deno lint",
     "fmt": "deno fmt --check",
-    "test": "deno test --no-check -A"
+    "test": "rm -rf coverage && deno test --coverage=./coverage/base/ --no-check -A",
+    "coverage": "deno coverage --unstable ./coverage/base/ --lcov --output=./coverage/lcov_output && genhtml -o ./coverage/profile ./coverage/lcov_html"
   },
+
+  // Compiler Options
   "compilerOptions": {
     "lib": [
-      "deno.ns",
-      "deno.unstable",
+      "dom.asynciterable",
       "deno.worker",
-      "dom.asynciterable"
+      "deno.ns",
+      "deno.unstable"
     ],
-    "allowJs": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "checkJs": false,
-    "experimentalDecorators": true,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noStrictGenericChecks": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "strict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true,
+    "allowJs": false,
+    "checkJs": false,
+    "keyofStringsOnly": true,
+    // "experimentalDecorators": true,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false
   },
+
+  // Linting Options
   "lint": {
     "rules": {
       "tags": ["recommended"],
@@ -53,14 +68,17 @@
         "no-await-in-loop",
         "no-const-assign",
         "no-eval",
+        "no-undef",
         "prefer-ascii"
       ]
     }
   },
+
+  // Formatting Options
   "fmt": {
     "options": {
       "useTabs": false,
-      "lineWidth": 64,
+      "lineWidth": 255,
       "indentWidth": 2,
       "singleQuote": true,
       "proseWrap": "always"

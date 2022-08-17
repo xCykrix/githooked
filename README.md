@@ -1,10 +1,10 @@
-# githooked - Amethyst
+# githooked - xCykrix
 
-[Tool/Deno] Manage git-hooks across your team with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting.
+[Tool/Deno] Manage git-hooks across your team with cross-platform support and mobility. Integrate with git to maintain control and stable development.
 
 ## Installation, Configuration, and Deployment
 
-Please refer to the [Wiki Pages](./wiki) for the setup and update processes, if available. The README does not contain this information.
+Please refer to the [Wiki Pages](../../wiki/) for the setup and update processes, if available. The README does not contain this information.
 
 ## Contributing
 
