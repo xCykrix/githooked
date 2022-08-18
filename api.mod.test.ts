@@ -23,7 +23,7 @@ Deno.test('General API', async (t) => {
 
   await t.step('validate', async () => {
     assertEquals(
-      await Install.update(`${Deno.cwd()}/_TEST_SUITE`, true).then(() => {
+      await Install.update(`${Deno.cwd()}/_TEST_SUITE`).then(() => {
         return true;
       }).catch(() => {
         return false;
@@ -40,4 +40,10 @@ Deno.test('General API', async (t) => {
       false,
     );
   });
+
+  await t.step('finish', async () => {
+    await Deno.remove(`${Deno.cwd()}/_TEST_SUITE`, {
+      recursive: true,
+    })
+  })
 });

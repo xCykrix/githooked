@@ -9,7 +9,11 @@ import { getHooks, git } from './git.ts';
 
 Deno.test('Git API', async (t) => {
   await t.step('command rev-parse', async () => {
-    await git(`${Deno.cwd()}`, ['rev-parse']);
+    assertEquals((await git(`${Deno.cwd()}`, ['rev-parse'])).status.success, true);
+  });
+
+  await t.step('error', async () => {
+    assertEquals((await git(`${Deno.cwd()}`, ['invalid-command'])).status.success, false);
   });
 
   await t.step('getHooks', () => {
