@@ -1,3 +1,5 @@
+rm -r ./build/
+
 deno compile \
   --no-check=remote \
   --allow-run=deno,git \

@@ -5,7 +5,7 @@
     "update": "deno task dmm && deno cache --no-check=remote --reload ./deps.ts",
 
     // Wrapped Scripts for Tooling
-    "githooked": "deno run --no-check=remote --allow-run=deno,git --allow-read=.git,.git-hooks --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
+    "githooked": "deno cache --reload https://deno.land/x/githooked/mod.ts && deno run --no-check=remote --allow-run=deno,git --allow-read --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
     "dmm": "deno run --no-check=remote --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='deps.ts' --allow-write='deps.ts' https://deno.land/x/dmm/mod.ts update",
 
     // Code Quality Scripts
