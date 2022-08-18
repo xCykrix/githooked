@@ -5,7 +5,7 @@ echo "Updating using '${TEMP_DIR}' as relative storage."
 echo "Cloning the 'meta' template to the relative storage."
 git clone https://github.com/amethyst-studio/meta "${TEMP_DIR}"
 
-echo "Pulling the files which can be updated."
+echo "Pulling the files which will be updated."
 cp -r "./${TEMP_DIR}/.github" "./"
 cp -r "./${TEMP_DIR}/UPDATE_TEMPLATE.sh" "./UPDATE_TEMPLATE.sh"
 cp -r "./${TEMP_DIR}/.editorconfig" "./.editorconfig"
@@ -22,12 +22,13 @@ fi
 rm -rf "./${TEMP_DIR}/"
 
 # Commit the changes.
+echo "Commiting files to the selected branch."
 git reset
 git add UPDATE_TEMPLATE.sh
 git add .github
 git add .editorconfig
 git add .gitattributes
-git commit -m 'chore(meta): update cross-organization meta documents'
+git commit -m "chore(meta): update cross-organization state"
 
 # Notice.
-echo 'Done! Please push these changed when finished.'
+echo "Done! Please create a pull request or push to release. These files do not change production."
