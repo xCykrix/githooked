@@ -4,7 +4,7 @@
 
 ## Installation, Configuration, and Deployment
 
-Please refer to the [Wiki Pages](../../wiki/) for the setup and update processes, if available. The README does not contain this information.
+Please refer to the [Wiki Pages](https://github.com/amethyst-studio/githooked/wiki) for the setup and update processes, if available. The README does not contain this information.
 
 ## Contributing
 
