@@ -44,6 +44,6 @@ Deno.test('General API', async (t) => {
   await t.step('finish', async () => {
     await Deno.remove(`${Deno.cwd()}/_TEST_SUITE`, {
       recursive: true,
-    })
-  })
+    });
+  });
 });
