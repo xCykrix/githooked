@@ -1,4 +1,5 @@
-import { CLI, MainCommand, Subcommand } from './deps.ts';
+import { LoggerLevel } from 'https://raw.githubusercontent.com/amethyst-studio/amethyst-std/3b6e91653a654493573fd2eae5279e5013f0728a/lib/logger/interfaces.ts';
+import { CLI, LoggerManager, MainCommand, Subcommand } from './deps.ts';
 import { Install } from './lib/install.ts';
 
 /** githooked */
@@ -20,10 +21,20 @@ class InstallCommand extends Subcommand {
 
   /** Call Githooked Installer. */
   public override async handle(): Promise<void> {
-    console.info('Installing');
+    LoggerManager.configure({
+      definition: {
+        'install': {
+          level: this.option('--debug') === true ? LoggerLevel.Trace : LoggerLevel.Information,
+          location: false,
+        },
+      },
+    });
+    LoggerManager.getLogger('install').info({
+      content: 'Installing githooked...',
+    });
 
     /** Process the Installation. */
-    await Install.update(Deno.cwd(), !!this.option('--debug'));
+    await Install.update(Deno.cwd());
   }
 }
 

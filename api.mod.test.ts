@@ -41,37 +41,3 @@ Deno.test('General API', async (t) => {
     );
   });
 });
-
-// import { exists } from './lib/util/fs.ts';
-// import { git } from './lib/util/git.ts';
-// import { Install } from './lib/install.ts';
-
-//   await t.step('install', async () => {
-await Install.update(`${Deno.cwd()}/_TEST_SUITE`, true);
-// assertEquals(
-//   await Install.update(`NOT_A_PATH`).catch(() => {
-//     return null;
-//   }),
-//   null,
-// );
-//   });
-
-//   await t.step('assert', async () => {
-//     assertEquals(
-//       await exists(`${Deno.cwd()}/_TEST_SUITE/.git-hooks/`),
-//       true,
-//     );
-//     assertEquals(
-//       await exists(
-//         `${Deno.cwd()}/_TEST_SUITE/.git-hooks/_util/`,
-//       ),
-//       true,
-//     );
-//   });
-
-//   await t.step('clean', async () => {
-//     await Deno.remove(`${Deno.cwd()}/_TEST_SUITE`, {
-//       recursive: true,
-//     });
-//   });
-// });

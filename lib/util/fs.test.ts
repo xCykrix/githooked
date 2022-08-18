@@ -14,5 +14,5 @@ Deno.test('FS Api', async (t) => {
 
   await t.step('error', async () => {
     assertEquals(await exists(`${Deno.cwd()}/fakePath`), false);
-  })
+  });
 });
