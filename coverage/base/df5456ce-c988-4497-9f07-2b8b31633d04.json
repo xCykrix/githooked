@@ -1,0 +1,21 @@
+{
+  "scriptId": "137",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/types/interfaces/CtxLike.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 448, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 130, "endOffset": 418, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "match",
+      "ranges": [{ "startOffset": 154, "endOffset": 389, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

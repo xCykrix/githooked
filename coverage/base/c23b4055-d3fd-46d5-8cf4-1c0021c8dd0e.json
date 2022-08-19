@@ -1,0 +1,46 @@
+{
+  "scriptId": "80",
+  "url": "https://raw.githubusercontent.com/amethyst-studio/amethyst-std/3b6e91653a654493573fd2eae5279e5013f0728a/lib/logger/logger.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 6451, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<static_initializer>",
+      "ranges": [{ "startOffset": 606, "endOffset": 631, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "configure",
+      "ranges": [{ "startOffset": 775, "endOffset": 3100, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getLogger",
+      "ranges": [{ "startOffset": 3224, "endOffset": 3801, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dispatchLoggerEvent",
+      "ranges": [{ "startOffset": 3931, "endOffset": 3995, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "handleDispatchedLoggerEvents",
+      "ranges": [{ "startOffset": 4137, "endOffset": 4276, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shutdown",
+      "ranges": [{ "startOffset": 4356, "endOffset": 4401, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 4477, "endOffset": 6450, "count": 0 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

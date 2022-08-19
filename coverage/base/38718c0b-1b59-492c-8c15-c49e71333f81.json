@@ -1,0 +1,110 @@
+{
+  "scriptId": "4",
+  "url": "deno:core/01_core.js",
+  "functions": [
+    {
+      "functionName": "setPromise",
+      "ranges": [
+        { "startOffset": 1612, "endOffset": 1990, "count": 90 },
+        { "startOffset": 1801, "endOffset": 1919, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getPromise",
+      "ranges": [
+        { "startOffset": 1994, "endOffset": 2471, "count": 90 },
+        { "startOffset": 2163, "endOffset": 2303, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "newPromise",
+      "ranges": [{ "startOffset": 2475, "endOffset": 2722, "count": 90 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2556, "endOffset": 2636, "count": 90 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opresolve",
+      "ranges": [
+        { "startOffset": 3079, "endOffset": 3310, "count": 62 },
+        { "startOffset": 3152, "endOffset": 3306, "count": 90 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3403, "endOffset": 3431, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unwrapOpResult",
+      "ranges": [
+        { "startOffset": 4019, "endOffset": 4791, "count": 90 },
+        { "startOffset": 4135, "endOffset": 4152, "count": 24 },
+        { "startOffset": 4154, "endOffset": 4771, "count": 2 },
+        { "startOffset": 4308, "endOffset": 4494, "count": 0 },
+        { "startOffset": 4771, "endOffset": 4790, "count": 88 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opAsync",
+      "ranges": [
+        { "startOffset": 4795, "endOffset": 5672, "count": 90 },
+        { "startOffset": 4997, "endOffset": 5031, "count": 0 },
+        { "startOffset": 5135, "endOffset": 5546, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 5481, "endOffset": 5530, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "resources",
+      "ranges": [{ "startOffset": 5993, "endOffset": 6069, "count": 10 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "metrics",
+      "ranges": [{ "startOffset": 6073, "endOffset": 6307, "count": 10 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 6232, "endOffset": 6272, "count": 3350 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "close",
+      "ranges": [{ "startOffset": 7336, "endOffset": 7362, "count": 15 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tryClose",
+      "ranges": [{ "startOffset": 7378, "endOffset": 7408, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "setMacrotaskCallback",
+      "ranges": [{ "startOffset": 7622, "endOffset": 7663, "count": 1 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "encode",
+      "ranges": [{ "startOffset": 8080, "endOffset": 8109, "count": 30 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "destructureError",
+      "ranges": [{ "startOffset": 8789, "endOffset": 8831, "count": 5 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "scriptId": "86",
+  "url": "file:///home/samuel-voeller/proj/githooked/lib/script/init.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 961, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

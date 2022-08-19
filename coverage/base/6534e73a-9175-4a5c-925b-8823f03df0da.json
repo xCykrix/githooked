@@ -1,0 +1,46 @@
+{
+  "scriptId": "95",
+  "url": "https://deno.land/std@0.152.0/testing/_diff.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 11432, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 217, "endOffset": 344, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createCommon",
+      "ranges": [{ "startOffset": 430, "endOffset": 834, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "diff",
+      "ranges": [{ "startOffset": 968, "endOffset": 5920, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "diffstr",
+      "ranges": [{ "startOffset": 6119, "endOffset": 9845, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createColor",
+      "ranges": [{ "startOffset": 9954, "endOffset": 10290, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createSign",
+      "ranges": [{ "startOffset": 10397, "endOffset": 10616, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildMessage",
+      "ranges": [{ "startOffset": 10624, "endOffset": 11431, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

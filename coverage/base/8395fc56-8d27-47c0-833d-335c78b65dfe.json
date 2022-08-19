@@ -1,0 +1,14 @@
+{
+  "scriptId": "117",
+  "url": "https://raw.githubusercontent.com/garronej/minimal_polyfills/v2.2.1/deno_dist/WeakMap.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 132, "count": 1 },
+        { "startOffset": 117, "endOffset": 130, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

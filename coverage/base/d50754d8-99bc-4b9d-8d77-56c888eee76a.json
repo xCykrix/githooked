@@ -1,0 +1,16 @@
+{
+  "scriptId": "140",
+  "url": "https://raw.githubusercontent.com/garronej/tsafe/v0.10.1/deno_dist/isPromiseLike.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 142, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isPromiseLike",
+      "ranges": [{ "startOffset": 70, "endOffset": 141, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

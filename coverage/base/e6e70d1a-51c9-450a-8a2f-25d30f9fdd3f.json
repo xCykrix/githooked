@@ -1,0 +1,11 @@
+{
+  "scriptId": "100",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/util/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 85, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

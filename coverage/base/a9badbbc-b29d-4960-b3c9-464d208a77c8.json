@@ -1,0 +1,21 @@
+{
+  "scriptId": "79",
+  "url": "file:///home/samuel-voeller/proj/githooked/lib/util/git.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1715, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "git",
+      "ranges": [{ "startOffset": 231, "endOffset": 926, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getHooks",
+      "ranges": [{ "startOffset": 955, "endOffset": 1714, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

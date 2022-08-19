@@ -1,0 +1,11 @@
+{
+  "scriptId": "78",
+  "url": "file:///home/samuel-voeller/proj/githooked/deps.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 398, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

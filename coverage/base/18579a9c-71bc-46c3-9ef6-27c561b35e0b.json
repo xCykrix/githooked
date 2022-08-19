@@ -1,0 +1,19 @@
+{
+  "scriptId": "112",
+  "url": "https://raw.githubusercontent.com/garronej/minimal_polyfills/v2.2.1/deno_dist/Set.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 637, "count": 1 },
+        { "startOffset": 621, "endOffset": 635, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 59, "endOffset": 563, "count": 0 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

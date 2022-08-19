@@ -1,0 +1,36 @@
+{
+  "scriptId": "120",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/LazyEvt.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 793, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 192, "endOffset": 792, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "get evt",
+      "ranges": [{ "startOffset": 238, "endOffset": 463, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "__post",
+      "ranges": [{ "startOffset": 468, "endOffset": 656, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "post",
+      "ranges": [{ "startOffset": 661, "endOffset": 720, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "postAndWait",
+      "ranges": [{ "startOffset": 725, "endOffset": 790, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

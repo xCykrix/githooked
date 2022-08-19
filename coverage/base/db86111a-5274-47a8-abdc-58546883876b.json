@@ -1,0 +1,11 @@
+{
+  "scriptId": "87",
+  "url": "https://raw.githubusercontent.com/amethyst-studio/amethyst-std/3b6e91653a654493573fd2eae5279e5013f0728a/deps.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 225, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

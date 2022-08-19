@@ -1,0 +1,11 @@
+{
+  "scriptId": "51",
+  "url": "deno:runtime/js/01_errors.js",
+  "functions": [
+    {
+      "functionName": "NotFound",
+      "ranges": [{ "startOffset": 273, "endOffset": 345, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

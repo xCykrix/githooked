@@ -1,0 +1,21 @@
+{
+  "scriptId": "84",
+  "url": "file:///home/samuel-voeller/proj/githooked/lib/util/fs.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 417, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "exists",
+      "ranges": [
+        { "startOffset": 191, "endOffset": 416, "count": 3 },
+        { "startOffset": 261, "endOffset": 289, "count": 1 },
+        { "startOffset": 289, "endOffset": 414, "count": 2 },
+        { "startOffset": 389, "endOffset": 414, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

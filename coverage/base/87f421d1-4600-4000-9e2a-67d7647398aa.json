@@ -1,0 +1,16 @@
+{
+  "scriptId": "138",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/Evt.loosenType.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 257, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "loosenType",
+      "ranges": [{ "startOffset": 59, "endOffset": 103, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

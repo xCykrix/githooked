@@ -1,0 +1,16 @@
+{
+  "scriptId": "144",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/util/genericOperators/distinct.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1124, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "distinct",
+      "ranges": [{ "startOffset": 65, "endOffset": 1122, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

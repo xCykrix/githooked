@@ -1,0 +1,66 @@
+{
+  "scriptId": "65",
+  "url": "deno:runtime/js/40_process.js",
+  "functions": [
+    {
+      "functionName": "opRunStatus",
+      "ranges": [{ "startOffset": 563, "endOffset": 641, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "opRun",
+      "ranges": [{ "startOffset": 645, "endOffset": 742, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "runStatus",
+      "ranges": [
+        { "startOffset": 746, "endOffset": 1094, "count": 5 },
+        { "startOffset": 842, "endOffset": 947, "count": 0 },
+        { "startOffset": 976, "endOffset": 1036, "count": 3 },
+        { "startOffset": 1036, "endOffset": 1090, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Process",
+      "ranges": [
+        { "startOffset": 1118, "endOffset": 1508, "count": 5 },
+        { "startOffset": 1213, "endOffset": 1232, "count": 0 },
+        { "startOffset": 1234, "endOffset": 1290, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "status",
+      "ranges": [{ "startOffset": 1514, "endOffset": 1564, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "output",
+      "ranges": [
+        { "startOffset": 1570, "endOffset": 1789, "count": 5 },
+        { "startOffset": 1611, "endOffset": 1673, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "stderrOutput",
+      "ranges": [
+        { "startOffset": 1795, "endOffset": 2020, "count": 5 },
+        { "startOffset": 1842, "endOffset": 1904, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "close",
+      "ranges": [{ "startOffset": 2026, "endOffset": 2069, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 2133, "endOffset": 2661, "count": 5 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

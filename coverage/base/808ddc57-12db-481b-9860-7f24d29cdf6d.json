@@ -1,0 +1,16 @@
+{
+  "scriptId": "129",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/Evt.newCtx.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 195, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "newCtx",
+      "ranges": [{ "startOffset": 139, "endOffset": 194, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "88",
+  "url": "https://deno.land/x/line@v1.0.1/src/main_command.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 6069, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 146, "endOffset": 6068, "count": 0 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

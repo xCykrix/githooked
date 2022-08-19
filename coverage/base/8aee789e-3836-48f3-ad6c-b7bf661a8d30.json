@@ -1,0 +1,19 @@
+{
+  "scriptId": "105",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/Ctx.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 3552, "count": 1 },
+        { "startOffset": 3519, "endOffset": 3528, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 671, "endOffset": 3435, "count": 0 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

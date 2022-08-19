@@ -1,0 +1,43 @@
+{
+  "scriptId": "57",
+  "url": "deno:runtime/js/12_io.js",
+  "functions": [
+    {
+      "functionName": "read",
+      "ranges": [
+        { "startOffset": 2081, "endOffset": 2261, "count": 15 },
+        { "startOffset": 2145, "endOffset": 2168, "count": 0 },
+        { "startOffset": 2242, "endOffset": 2248, "count": 10 },
+        { "startOffset": 2249, "endOffset": 2256, "count": 5 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "readAll",
+      "ranges": [{ "startOffset": 2458, "endOffset": 2511, "count": 10 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "readAllInner",
+      "ranges": [
+        { "startOffset": 2514, "endOffset": 2986, "count": 10 },
+        { "startOffset": 2606, "endOffset": 2614, "count": 0 },
+        { "startOffset": 2641, "endOffset": 2916, "count": 15 },
+        { "startOffset": 2655, "endOffset": 2671, "count": 0 },
+        { "startOffset": 2797, "endOffset": 2880, "count": 5 },
+        { "startOffset": 2880, "endOffset": 2910, "count": 10 },
+        { "startOffset": 2927, "endOffset": 2943, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "concatBuffers",
+      "ranges": [
+        { "startOffset": 3329, "endOffset": 3661, "count": 10 },
+        { "startOffset": 3416, "endOffset": 3457, "count": 5 },
+        { "startOffset": 3553, "endOffset": 3635, "count": 5 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

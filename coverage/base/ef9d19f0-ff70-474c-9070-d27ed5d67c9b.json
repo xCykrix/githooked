@@ -1,0 +1,26 @@
+{
+  "scriptId": "143",
+  "url": "https://deno.land/x/evt@v2.3.1/lib/util/genericOperators/nonNullable.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 196, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isNonNullable",
+      "ranges": [{ "startOffset": 22, "endOffset": 62, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nonNullableImpl",
+      "ranges": [{ "startOffset": 88, "endOffset": 146, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nonNullable",
+      "ranges": [{ "startOffset": 175, "endOffset": 194, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "scriptId": "59",
+  "url": "deno:runtime/js/30_fs.js",
+  "functions": [
+    {
+      "functionName": "cwd",
+      "ranges": [{ "startOffset": 1287, "endOffset": 1332, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parseFileInfo",
+      "ranges": [
+        { "startOffset": 3752, "endOffset": 4658, "count": 1 },
+        { "startOffset": 4063, "endOffset": 4069, "count": 0 },
+        { "startOffset": 4134, "endOffset": 4140, "count": 0 },
+        { "startOffset": 4233, "endOffset": 4239, "count": 0 },
+        { "startOffset": 4306, "endOffset": 4312, "count": 0 },
+        { "startOffset": 4345, "endOffset": 4351, "count": 0 },
+        { "startOffset": 4386, "endOffset": 4392, "count": 0 },
+        { "startOffset": 4429, "endOffset": 4435, "count": 0 },
+        { "startOffset": 4468, "endOffset": 4474, "count": 0 },
+        { "startOffset": 4507, "endOffset": 4513, "count": 0 },
+        { "startOffset": 4548, "endOffset": 4554, "count": 0 },
+        { "startOffset": 4595, "endOffset": 4601, "count": 0 },
+        { "startOffset": 4640, "endOffset": 4646, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "stat",
+      "ranges": [
+        { "startOffset": 5186, "endOffset": 5361, "count": 2 },
+        { "startOffset": 5326, "endOffset": 5360, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

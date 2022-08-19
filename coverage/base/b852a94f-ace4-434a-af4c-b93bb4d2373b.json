@@ -1,0 +1,81 @@
+{
+  "scriptId": "151",
+  "url": "https://raw.githubusercontent.com/garronej/run_exclusive/v2.2.16/deno_dist/lib/runExclusive.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 8193, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 128, "endOffset": 396, "count": 0 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getOrCreateExecQueue",
+      "ranges": [{ "startOffset": 555, "endOffset": 973, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createGroupRef",
+      "ranges": [{ "startOffset": 981, "endOffset": 1035, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 1043, "endOffset": 1270, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildMethod",
+      "ranges": [{ "startOffset": 1278, "endOffset": 1513, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getQueuedCallCount",
+      "ranges": [{ "startOffset": 1893, "endOffset": 2123, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "cancelAllQueuedCalls",
+      "ranges": [{ "startOffset": 2389, "endOffset": 2625, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isRunning",
+      "ranges": [{ "startOffset": 2861, "endOffset": 3077, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getPrComplete",
+      "ranges": [{ "startOffset": 3331, "endOffset": 3564, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getExecQueueByFunctionAndContext",
+      "ranges": [{ "startOffset": 3616, "endOffset": 4019, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildFnPromise",
+      "ranges": [{ "startOffset": 4020, "endOffset": 5894, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildCb",
+      "ranges": [{ "startOffset": 5902, "endOffset": 6133, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildMethodCb",
+      "ranges": [{ "startOffset": 6141, "endOffset": 6380, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildFnCallback",
+      "ranges": [{ "startOffset": 6381, "endOffset": 8192, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

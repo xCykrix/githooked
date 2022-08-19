@@ -1,0 +1,19 @@
+{
+  "scriptId": "119",
+  "url": "https://raw.githubusercontent.com/garronej/minimal_polyfills/v2.2.1/deno_dist/Array.prototype.find.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 1551, "count": 1 },
+        { "startOffset": 87, "endOffset": 1550, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "value",
+      "ranges": [{ "startOffset": 157, "endOffset": 1488, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}
