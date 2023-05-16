@@ -49,7 +49,6 @@
     "useUnknownInCatchVariables": true,
     "allowJs": false,
     "checkJs": false,
-    "keyofStringsOnly": true,
     // "experimentalDecorators": true,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false
@@ -77,12 +76,10 @@
 
   // Formatting Options
   "fmt": {
-    "options": {
-      "useTabs": false,
-      "lineWidth": 255,
-      "indentWidth": 2,
-      "singleQuote": true,
-      "proseWrap": "always"
-    }
+    "useTabs": false,
+    "lineWidth": 255,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "proseWrap": "always"
   }
 }

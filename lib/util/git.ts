@@ -9,40 +9,32 @@ export async function git(
   cwd: string,
   command: string[],
 ): Promise<{
-  proc: Deno.Process<{
-    cmd: string[];
-    stdout: 'piped';
-    stderr: 'piped';
-  }>;
-  status: Deno.ProcessStatus;
+  proc: Deno.Command;
+  status: number;
   stdout: string;
   stderr: string;
 }> {
-  // Ensure the leading `git` is added to the command.
-  if (command[0] !== 'git') {
-    command.unshift('git');
-  }
-
   // Execute the command and collect results. Exit the application on failure to locate git.
-  const proc = Deno.run({
-    cmd: command,
-    stdout: 'piped',
-    stderr: 'piped',
+  const proc = new Deno.Command('git', {
+    args: command,
     cwd,
   });
-  const status = await proc.status();
-  const stdout = new TextDecoder().decode(await proc.output());
-  const stderr = new TextDecoder().decode(
-    await proc.stderrOutput(),
-  );
-  proc.close();
+  const { code: status, stdout, stderr } = await proc.output();
+  const stdoutString = new TextDecoder()
+    .decode(
+      stdout,
+    );
+  const stderrString = new TextDecoder()
+    .decode(
+      stderr,
+    );
 
   // Send the response to the caller.
   return {
     proc,
     status,
-    stdout,
-    stderr,
+    stdout: stdoutString,
+    stderr: stderrString,
   };
 }
 

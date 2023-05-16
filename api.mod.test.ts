@@ -2,12 +2,7 @@ import { assertEquals } from './deps.ts';
 import { Install } from './lib/install.ts';
 import { git } from './lib/util/git.ts';
 
-/**
- * ID: GENERAL_API.
- * Description: Test to validate the API the main application code.
- * Scope: mod.ts lib/install.ts
- */
-Deno.test('General API', async (t) => {
+Deno.test('api.mod.ts', async (t) => {
   await t.step('prepare', async () => {
     await Deno.mkdir('./_TEST_SUITE/', {
       recursive: true,
