@@ -8,8 +8,8 @@ Please refer to the [Wiki Pages](https://github.com/amethyst-studio/githooked/wi
 
 ## Contributing
 
-Contributions are always welcome to all of our projects. Each project in our organization is defined using a [A/B] format in our description. You can find the reference guide in our
-[Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md).
+Contributions are always welcome to all of our projects. Each project in our organization is defined using a [A/B] format in our description. You can find the reference guide in
+our [Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md).
 
 Please ensure that you have reviewed and agree to our [Guidelines for Contribution](https://github.com/amethyst-studio/.github/blob/main/.github/CONTRIBUTING.md) and
 [Code of Conduct](https://github.com/amethyst-studio/.github/blob/main/.github/CODE_OF_CONDUCT.md). By submitting an issue or pull request, you are agreeing to each respectively.

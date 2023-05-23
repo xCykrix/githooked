@@ -1,5 +1,4 @@
-import { LoggerLevel } from 'https://raw.githubusercontent.com/amethyst-studio/amethyst-std/3b6e91653a654493573fd2eae5279e5013f0728a/lib/logger/interfaces.ts';
-import { CLI, LoggerManager, MainCommand, Subcommand } from './deps.ts';
+import { CLI, LoggerLevel, LoggerManager, MainCommand, Subcommand } from './deps.ts';
 import { Install } from './lib/install.ts';
 
 /** githooked */
