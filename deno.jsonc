@@ -50,7 +50,6 @@
     "useUnknownInCatchVariables": true,
     "allowJs": false,
     "checkJs": false,
-    // "experimentalDecorators": true,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false
   },
@@ -66,9 +65,12 @@
         "eqeqeq",
         "explicit-function-return-type",
         "explicit-module-boundary-types",
+        "guard-for-in",
         "no-await-in-loop",
         "no-const-assign",
         "no-eval",
+        "no-external-import",
+        "no-sparse-arrays",
         "no-undef",
         "prefer-ascii"
       ]
@@ -78,7 +80,7 @@
   // Formatting Options
   "fmt": {
     "useTabs": false,
-    "lineWidth": 255,
+    "lineWidth": 180,
     "indentWidth": 2,
     "singleQuote": true,
     "proseWrap": "always"
