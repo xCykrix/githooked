@@ -1,8 +1,9 @@
-import { exists } from './util/fs.ts';
-import { getHooks, git } from './util/git.ts';
-import { hook } from './script/hook.ts';
-import { init } from './script/init.ts';
-import { LoggerManager } from '../deps.ts';
+import {exists} from './util/fs.ts';
+import {chmod} from './util/chmod.ts';
+import {getHooks, git} from './util/git.ts';
+import {hook} from './script/hook.ts';
+import {init} from './script/init.ts';
+import {LoggerManager} from '../deps.ts';
 
 export class Install {
   private static installed = true;
@@ -94,16 +95,16 @@ export class Install {
     });
     for await (
       const hook of Deno.readDir(`${cwd}/.git-hooks/`)
-    ) {
+      ) {
       if (hook.isFile && !hook.name.includes('.')) {
-        await Deno.chmod(
+        await chmod(cwd, [
           `${cwd}/.git-hooks/${hook.name}`,
-          0o755,
-        )
+          '755',
+        ])
           .catch((err) => {
             logger.error({
               content: 'Unable to update file permissions. Please review error and attempt to run githooked again. Windows is not supported without unix emulation.',
-              context: err,
+              context: err.stack,
             });
             return Deno.exit(-1);
           });

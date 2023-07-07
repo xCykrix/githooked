@@ -9,15 +9,14 @@
     "dmm": "deno run --no-check=remote --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='deps.ts' --allow-write='deps.ts' https://deno.land/x/dmm/mod.ts update",
 
     // Code Quality Scripts
-    "enforce-cq": "deno task build && deno task lint && deno task fmt && deno task test && deno task coverage",
+    "enforce-cq": "deno task build && deno task lint && deno task fmt && deno task test",
     "build": "bash scripts/build.sh",
     "compile": "bash scripts/compile.sh",
 
     // Wrappers for Code Quality
     "lint": "deno lint --ignore=build-for-npm",
     "fmt": "deno fmt --check --ignore=build-for-npm",
-    "test": "rm -rf coverage && deno test --ignore=build-for-npm --coverage=./coverage/base/ --no-check -A",
-    "coverage": "deno coverage --unstable ./coverage/base/ --lcov --output=./coverage/lcov_output"
+    "test": "deno test --ignore=build-for-npm --no-check -A"
   },
 
   // Compiler Options

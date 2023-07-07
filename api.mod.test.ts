@@ -20,7 +20,8 @@ Deno.test('api.mod.ts', async (t) => {
     assertEquals(
       await Install.update(`${Deno.cwd()}/_TEST_SUITE`).then(() => {
         return true;
-      }).catch(() => {
+      }).catch((err) => {
+        console.error(err);
         return false;
       }),
       true,
