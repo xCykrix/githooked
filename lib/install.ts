@@ -1,9 +1,9 @@
-import {exists} from './util/fs.ts';
-import {chmod} from './util/chmod.ts';
-import {getHooks, git} from './util/git.ts';
-import {hook} from './script/hook.ts';
-import {init} from './script/init.ts';
-import {LoggerManager} from '../deps.ts';
+import { LoggerManager } from '../deps.ts';
+import { hook } from './script/hook.ts';
+import { init } from './script/init.ts';
+import { chmod } from './util/chmod.ts';
+import { exists } from './util/fs.ts';
+import { getHooks, git } from './util/git.ts';
 
 export class Install {
   private static installed = true;
@@ -14,7 +14,7 @@ export class Install {
   public static async update(
     cwd: string,
   ): Promise<void> {
-    const logger = LoggerManager.getLogger('install');
+    const logger = LoggerManager.getLogger();
     logger.info({
       content: 'Preparing to update the git hooks structure.',
     });
@@ -95,7 +95,7 @@ export class Install {
     });
     for await (
       const hook of Deno.readDir(`${cwd}/.git-hooks/`)
-      ) {
+    ) {
       if (hook.isFile && !hook.name.includes('.')) {
         await chmod(cwd, [
           `${cwd}/.git-hooks/${hook.name}`,
