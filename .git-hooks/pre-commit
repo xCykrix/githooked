@@ -10,7 +10,8 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 # Your script begins here.
 # The last command to run, or explicit "exit" commands, will determine the status code to Git.
 
-echo "Running 'enforce-cq' script."
-deno task enforce-cq
+# Default Hook: Full List of Hooks at https://git-scm.com/docs/githooks#_hooks
+source dev/validate-shfmt.sh
+validate_shfmt
 
-exit 0
+exit 0 # NO OP. This quietly passes to prevent spam during configuration.

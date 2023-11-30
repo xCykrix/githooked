@@ -1,0 +1,59 @@
+name: githooked
+help: Minimal application used to uniformly enforce and distribute git-hooks for development.
+version: 1.0.0-rc0
+
+commands:
+  - name: install
+    alias: [inst, i]
+    help: Install githooked runtime on the current path. Requires './.git/' to be present.
+  - name: generate
+    alias: g
+    help: Generate default githooked 'no-op' placeholder hooks.
+    args:
+      - name: hook
+        help: https://git-scm.com/docs/githooks#_hooks
+        required: true
+        repeatable: true
+        allowed: [applypatch-msg, pre-applypatch, post-applypatch, pre-commit, pre-merge-commit, prepare-commit-msg, commit-msg, post-commit, pre-rebase, post-checkout, post-merge, pre-push, pre-receive, update, proc-receive, post-receive, post-update, reference-transaction, push-to-checkout, pre-auto-gc, post-rewrite, sendemail-validate, fsmonitor-watchman, p4-changelist, p4-prepare-changelist, p4-post-changelist, p4-pre-submit, post-index-change]
+  # - name: upgrade
+  #   alias: [up, u]
+  #   help: Upgrade the installed version of the githooked from the latest GitHub Release.
+
+flags:
+  - long: --trace
+    short: -t
+    help: Print additional information and details.
+    default: false
+
+examples:
+- githooked --help
+- githooked install --help
+- githooked generate --help
+- githooked generate prepare-commit-msg pre-commit pre-push
+- githooked upgrade
+
+dependencies:
+  cat:
+    command: [cat]
+    help: Unable to locate 'cat'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  chmod:
+    command: [chmod]
+    help: Unable to locate 'chmod'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  dirname:
+    command: [dirname]
+    help: Unable to locate 'dirname'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  echo:
+    command: [echo]
+    help: Unable to locate 'echo'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  git:
+    command: [git]
+    help: Unable to locate 'git'. Please install git via your Package Manager. URL https://git-scm.com/
+  ls:
+    command: [ls]
+    help: Unable to locate 'ls'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  mkdir:
+    command: [mkdir]
+    help: Unable to locate 'mkdir'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  pwd:
+    command: [pwd]
+    help: Unable to locate 'pwd'. githooked is only confirmed to be supported on Bash 4.0 or higher.
