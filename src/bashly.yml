@@ -1,5 +1,5 @@
 name: githooked
-help: Minimal application used to uniformly enforce and distribute git-hooks for development.
+help: Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
 version: 1.0.0-rc0
 
 commands:
