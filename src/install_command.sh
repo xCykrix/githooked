@@ -1,9 +1,5 @@
 info "Installing 'githooked' to the current path..."
 
-# Store and update 'set e' to 'set +e'.
-E_STATE="${-//[^e]/}"
-set +e
-
 # Execute 'git rev-parse'.
 info "Validating that project is valid git tracking."
 trace "git rev-parse HEAD"
@@ -66,6 +62,3 @@ done
 info "Setting 'core.hooksPath' to './.git-hooks'."
 trace "git config core.hooksPath './.git-hooks/'"
 git config core.hooksPath "./.git-hooks/"
-
-# Restore 'set e' state.
-restore_sete "$E_STATE"

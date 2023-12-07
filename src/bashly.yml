@@ -26,11 +26,11 @@ flags:
     default: false
 
 examples:
-- githooked --help
-- githooked install --help
-- githooked generate --help
-- githooked generate prepare-commit-msg pre-commit pre-push
-- githooked upgrade
+- ./githooked --help
+- ./githooked install --help
+- ./githooked generate --help
+- ./githooked generate prepare-commit-msg pre-commit pre-push
+- ./githooked upgrade
 
 dependencies:
   cat:

@@ -13,4 +13,5 @@ HOOK_DISABLE_NOTICE=0 # Set to 1 to disable the notice when the hook exits with 
 source dev/validate-shfmt.sh
 validate_shfmt
 
+echo "Validated 'pre-commit' hook."
 exit 0
