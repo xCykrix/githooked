@@ -9,3 +9,5 @@ validate_shfmt() {
 
   shfmt -l -d src
 }
+
+validate_shfmt
