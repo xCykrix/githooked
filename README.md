@@ -1,7 +1,7 @@
 
 # githooked
 
-Tool | DevOps - Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
+Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
 
 Find more in-depth guidance and documentation at https://xcykrix.github.io/githooked.html
 
