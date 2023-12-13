@@ -47,7 +47,6 @@ Examples:
   ./githooked upgrade
 ```
 
-
 ## Contributing
 
 This project utilizes a Makefile to control the development, workflow, and distribution of the project. This project requires the Snap Store to be installed on your Linux Operating System. These projects are designed for development with Ubuntu Linux 22.04.
@@ -60,6 +59,7 @@ $ make build-dev
 ```
 
 Application is built to `./dist/` when compiled by the `make build-dev` task.
+
 ## Support
 
 For support, please open an issue or discussion on GitHub for this project.
