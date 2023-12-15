@@ -8,11 +8,10 @@ chmod +x githooked.prod
 ./githooked.prod install
 rm ./githooked.prod
 
-# Dependency: ruby gem - https://snapcraft.io/install/ruby/ubuntu
-sudo snap install ruby --classic && sudo snap refresh shfmt
-
-# Dependency: bashly - https://bashly.dannyb.co/
-/snap/bin/gem install bashly
-
-# Test: shfmt - https://github.com/mvdan/sh
+# DevOps: shfmt - https://github.com/mvdan/sh
 sudo snap install shfmt && sudo snap refresh shfmt
+
+# Dependency: ruby gem - https://snapcraft.io/install/ruby/ubuntu
+sudo snap install ruby --classic && sudo snap refresh ruby
+## Child: bashly (gem) - https://bashly.dannyb.co/
+/snap/bin/gem install bashly
