@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Wipe and create 'dist' for clean build.
-rm -r dist && mkdir -p dist
+rm -rf dist && mkdir -p dist
 
 # Build Project
-bashly generate --env production
+~/.gem/bin/bashly generate --env production
