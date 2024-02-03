@@ -4,10 +4,10 @@ version: 1.0.0-rc0
 
 commands:
   - name: install
-    alias: [inst, i]
+    alias: [in, i]
     help: Install githooked runtime on the current path. Requires './.git/' to be present.
   - name: generate
-    alias: g
+    alias: [gen, g]
     help: Generate default githooked 'no-op' placeholder hooks.
     args:
       - name: hook
@@ -15,9 +15,9 @@ commands:
         required: true
         repeatable: true
         allowed: [applypatch-msg, pre-applypatch, post-applypatch, pre-commit, pre-merge-commit, prepare-commit-msg, commit-msg, post-commit, pre-rebase, post-checkout, post-merge, pre-push, pre-receive, update, proc-receive, post-receive, post-update, reference-transaction, push-to-checkout, pre-auto-gc, post-rewrite, sendemail-validate, fsmonitor-watchman, p4-changelist, p4-prepare-changelist, p4-post-changelist, p4-pre-submit, post-index-change]
-  # - name: upgrade
-  #   alias: [up, u]
-  #   help: Upgrade the installed version of the githooked from the latest GitHub Release.
+  - name: update
+    alias: [upgrade, up, u]
+    help: Update the installed version of githooked (and wrapper) from the latest GitHub Release.
 
 flags:
   - long: --trace
@@ -27,10 +27,9 @@ flags:
 
 examples:
 - ./githooked --help
-- ./githooked install --help
-- ./githooked generate --help
+- ./githooked install
 - ./githooked generate prepare-commit-msg pre-commit pre-push
-- ./githooked upgrade
+- ./githooked update
 
 dependencies:
   cat:
@@ -45,9 +44,6 @@ dependencies:
   echo:
     command: [echo]
     help: Unable to locate 'echo'. githooked is only confirmed to be supported on Bash 4.0 or higher.
-  git:
-    command: [git]
-    help: Unable to locate 'git'. Please install git via your Package Manager. URL https://git-scm.com/
   ls:
     command: [ls]
     help: Unable to locate 'ls'. githooked is only confirmed to be supported on Bash 4.0 or higher.
@@ -57,3 +53,9 @@ dependencies:
   pwd:
     command: [pwd]
     help: Unable to locate 'pwd'. githooked is only confirmed to be supported on Bash 4.0 or higher.
+  git:
+    command: [git]
+    help: Unable to locate 'git'. Please install git via your Package Manager. URL https://git-scm.com/
+  https:
+    command: [curl, wget]
+    help: Unable to locate 'curl' or 'wget'. Please install 'curl' or 'wget' via your Package Manager. Required for automatic updates.
