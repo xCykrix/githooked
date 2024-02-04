@@ -41,10 +41,8 @@ Options:
 
 Examples:
   ./githooked --help
-  ./githooked install --help
-  ./githooked generate --help
+  ./githooked install
   ./githooked generate prepare-commit-msg pre-commit pre-push
-  ./githooked upgrade
 ```
 
 ## Contributing
