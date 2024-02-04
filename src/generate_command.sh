@@ -1,14 +1,17 @@
 info "Preparing to generate selected hooks."
 
-# Update './.git-hooks'.
-# Set the working state.
+# Load Environment Variables
 PWD="$(pwd)"
 GIT_HOOKS="$PWD/.git-hooks"
 HOOKS="${args[hook]}"
 
-info "Generating selected hooks."
+# Loop each selected hook and generate.
+info "Generating selected hooks..."
 for HOOK in $HOOKS; do
+  # Normlize the hook identifier.
   HOOK=$(echo $HOOK | tr -d '"')
-  trace "build_hook: '$GIT_HOOKS/$HOOK'"
+
+  # Call build_hook to generate file.
+  info "build_hook: '$GIT_HOOKS/$HOOK'"
   build_hook "$GIT_HOOKS/$HOOK"
 done
