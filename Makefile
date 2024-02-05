@@ -24,19 +24,19 @@ setup:
 	@mkdir -p "dev"
 	@touch ./dev/setup.sh
 	@chmod +x ./dev/setup.sh
-	sh ./dev/setup.sh
+	bash ./dev/setup.sh
 
 validate:
 	@echo "Task: 'validate'"
 	@mkdir -p "dev"
 	@touch ./dev/validate.sh
 	@chmod +x ./dev/validate.sh
-	sh ./dev/validate.sh
+	bash ./dev/validate.sh
 
 build:
 	@echo "Task: 'build'"
 	@mkdir -p "dev"
 	@touch ./dev/build.sh
 	@chmod +x ./dev/build.sh
-	sh ./dev/build.sh
+	bash ./dev/build.sh
 	make validate

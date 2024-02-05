@@ -1,5 +1,7 @@
 info() {
-  echo "$(green_bold info) $1"
+  if [[ -z "${args[--quiet]}" || "${args[--quiet]}" -eq 0 ]]; then
+    echo "$(green_bold info) $1"
+  fi
 }
 
 trace() {

@@ -10,4 +10,16 @@ validate_shfmt() {
   shfmt -l -d src
 }
 
+test_cli() {
+  . test/suite.sh
+  for test in "test"/*; do
+    if [[ "$test" =~ test\..* ]]; then
+      echo "test-suite (info): evaluate '$test'"
+      chmod +x $test
+      assert_code 0 "$test" "$test"
+    fi
+  done
+}
+
 validate_shfmt
+test_cli

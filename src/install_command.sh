@@ -1,5 +1,14 @@
 info "Installing 'githooked' to the current path..."
 
+# Validate '.git' exists.
+info "Validating that project has '.git' for hooks."
+trace "check_exist .git"
+if [ ! -d ".git" ]; then
+  error "Failed to validate '.git' is present."
+  error "Please ensure that 'git init' has been executed and at least one commit has been made. You can also review the above output from rev-parse."
+  exit 1
+fi
+
 # Execute 'git rev-parse'.
 info "Validating that project is valid git tracking."
 trace "git rev-parse HEAD"

@@ -21,6 +21,10 @@ flags:
     short: -t
     help: Print additional information and details.
     default: false
+  - long: --quiet
+    short: -q
+    help: Suppress informational messages and details.
+    default: false
 
 examples:
 - ./githooked --help
