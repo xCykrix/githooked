@@ -5,19 +5,19 @@ info "Validating that project has '.git' for hooks."
 trace "check_exist .git"
 if [ ! -d ".git" ]; then
   error "Failed to validate '.git' is present."
-  error "Please ensure that 'git init' has been executed and at least one commit has been made. You can also review the above output from rev-parse."
+  error "Please ensure that 'git init' has been executed and at least one commit has been made. You can also review the above output to identify the error."
   exit 1
 fi
 
 # Execute 'git rev-parse'.
-info "Validating that project is valid git tracking."
+info "Validating that project is valid for git tracking."
 trace "git rev-parse HEAD"
 GIT_REVPARSE_HASH=$(git rev-parse HEAD)
 GIT_REVPARSE_EXIT=$?
 
 # Fail out if non-zero exit code was found.
 if [ "$GIT_REVPARSE_EXIT" -gt 0 ]; then
-  error "Failed to execute rev-parse. Exited with code '$GIT_REVPARSE_EXIT' instead of code '0'."
+  error "Failed to validate rev-parse. Exited with code '$GIT_REVPARSE_EXIT' instead of code '0'."
   error "Please ensure that 'git init' has been executed and at least one commit has been made. You can also review the above output from rev-parse."
   exit 1
 fi
