@@ -11,5 +11,7 @@ trace() {
 }
 
 error() {
-  echo "$(red error) $1"
+  if [[ "${args[--quiet]}" -gt -1 ]]; then;
+    echo "$(red error) $1"
+  fi
 }
