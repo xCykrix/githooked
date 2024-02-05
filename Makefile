@@ -33,18 +33,10 @@ validate:
 	@chmod +x ./dev/validate.sh
 	sh ./dev/validate.sh
 
-build-dev:
-	@echo "Task: 'build-dev'"
+build:
+	@echo "Task: 'build'"
 	@mkdir -p "dev"
-	@touch ./dev/build-dev.sh
-	@chmod +x ./dev/build-dev.sh
-	sh ./dev/build-dev.sh
-	make validate
-
-build-production:
-	@echo "Task: 'build-production'"
-	@mkdir -p "dev"
-	@touch ./dev/build-production.sh
-	@chmod +x ./dev/build-production.sh
-	sh ./dev/build-production.sh
+	@touch ./dev/build.sh
+	@chmod +x ./dev/build.sh
+	sh ./dev/build.sh
 	make validate

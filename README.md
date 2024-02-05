@@ -53,10 +53,10 @@ When creating a clone, please execute the following command(s):
 
 ```sh
 $ make setup
-$ make build-dev
+$ make build
 ```
 
-Application is built to `./dist/` when compiled by the `make build-dev` task.
+Application is built to `./dist/` when compiled by the `make build` task.
 
 ## Support
 
