@@ -1,5 +1,5 @@
 info() {
-  if [[ -z "${args[--quiet]}" || "${args[--quiet]}" -eq 0 ]]; then
+  if [[ -z "${args[--quiet]}" || "${args[--quiet]}" -lt 1 ]]; then
     echo "$(green_bold info) $1"
   fi
 }
@@ -11,7 +11,7 @@ trace() {
 }
 
 error() {
-  if [[ "${args[--quiet]}" -gt -1 ]]; then
+  if [[ "${args[--quiet]}" -lt 2 ]]; then
     echo "$(red error) $1"
   fi
 }

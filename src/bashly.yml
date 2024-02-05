@@ -25,6 +25,7 @@ flags:
     short: -q
     help: Suppress informational messages and details.
     default: false
+    repeatable: true
 
 examples:
 - ./githooked --help

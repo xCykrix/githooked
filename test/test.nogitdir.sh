@@ -3,4 +3,4 @@
 . test/suite.sh
 configure $1
 rm -rf '.git'
-assert_code 1 "./githooked" "--quiet=0" "install"
+assert_code 1 "./githooked" "-qq" "install"
