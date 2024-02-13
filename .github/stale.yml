@@ -4,8 +4,8 @@ exemptLabels:
     - "Priority: Critical"
     - "Priority: High"
     - "State: Help Wanted"
-    - "State: Postponed"
     - "State: Work in Progress"
+    - "State: Postponed"
 staleLabel: 'Meta: Abandoned / No Fix'
 markComment: >
     This submission has been flagged as abandoned due to lack of activity. Is there something specific that is causing this to be delayed?

@@ -7,7 +7,7 @@ repository:
 
     has_issues: true
     has_projects: true
-    has_wiki: true
+    has_wiki: false
     default_branch: main
 
     allow_squash_merge: true

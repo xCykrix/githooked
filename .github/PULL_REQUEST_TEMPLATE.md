@@ -23,16 +23,18 @@ modification to result in a passing state (breaking changes)?
 
 I tested this PR by ... (description of testing methods)
 
+## Checklist Test Integrity
+
 - [ ] Tests passed with no modification.
 - [ ] Tests passed with modification.
 - [ ] Tests are not currently passing.
 - [ ] Tests need to be added to exist for the case covered in this issue.
 
-## Checklist for Integrity
+## Checklist Code Integrity
 
 - [ ] The changes follow the style guidelines defined in the project.
 - [ ] I have performed a self-review of my code, including testing intentionally
-  incorrect information.
+  incorrect states and information.
 - [ ] I have commented my code, particularly in hard to understand or complex
   areas.
 - [ ] The changes have not generated any new errors or warning by

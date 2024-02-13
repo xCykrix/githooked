@@ -12,7 +12,7 @@ labels:
 ---
 
 **Describe the Concern**: A clear and concise description of what is
-problematic.
+problematic. Please follow responsible disclosure and attempt to reach out directly if possible.
 
 **Information / Steps to Reproduce**:
 
