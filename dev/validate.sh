@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 validate_shfmt() {
   if ! [ -x "$(command -v shfmt)" ]; then

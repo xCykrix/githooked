@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 . test/suite.sh
 configure $1
