@@ -3,7 +3,7 @@
 
 Tool | DevOps - Beta - Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
 
-Find more in-depth guidance and documentation at https://xcykrix.github.io/githooked.html
+Find more in-depth guidance and documentation at https://github.com/xCykrix/githooked/wiki
 
 ![GitHub License](https://img.shields.io/github/license/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=86400)
 ![GitHub issues](https://img.shields.io/github/issues/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
@@ -12,7 +12,7 @@ Find more in-depth guidance and documentation at https://xcykrix.github.io/githo
 
 ## Installation
 
-https://xcykrix.github.io/githooked.html#githooked-installation-and-help
+https://github.com/xCykrix/githooked/wiki
 
 ## Usage
 
