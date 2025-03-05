@@ -1,0 +1,7 @@
+[1;32minfo[0m Installing 'githooked' to the current path...
+[1;32minfo[0m Validating that project has '.git' for hooks.
+[1;32minfo[0m Validating that project is valid for git tracking.
+[1;32minfo[0m Generating '/workspaces/githooked/dist/*'.
+[1;32minfo[0m Generating default hooks.
+[1;32minfo[0m Setting file permissions for hooks.
+[1;32minfo[0m Setting 'core.hooksPath' to './.git-hooks'.

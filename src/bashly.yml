@@ -1,6 +1,6 @@
 name: githooked
 help: Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
-version: 2.0.1
+version: 2.1.0
 
 commands:
   - name: install
@@ -45,9 +45,6 @@ dependencies:
   echo:
     command: [echo]
     help: Unable to locate 'echo'. githooked is only confirmed to be supported on Bash 4.0 or higher.
-  ls:
-    command: [ls]
-    help: Unable to locate 'ls'. githooked is only confirmed to be supported on Bash 4.0 or higher.
   mkdir:
     command: [mkdir]
     help: Unable to locate 'mkdir'. githooked is only confirmed to be supported on Bash 4.0 or higher.

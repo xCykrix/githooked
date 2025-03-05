@@ -1,0 +1,4 @@
+[1;32minfo[0m Installing 'githooked' to the current path...
+[1;32minfo[0m Validating that project has '.git' for hooks.
+[31merror[0m Failed to validate '.git' is present.
+[31merror[0m Please ensure that 'git init' has been executed and at least one commit has been made. You can also review the above output to identify the error.

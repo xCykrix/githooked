@@ -1,6 +1,7 @@
 ### Custom
 
 # Distributions
+test/approvals.bash
 dist
 githooked
 
@@ -45,7 +46,6 @@ githooked
 
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*

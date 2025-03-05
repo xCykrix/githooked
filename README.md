@@ -58,6 +58,8 @@ $ make build
 
 Application is built to `./dist/` when compiled by the `make build` task.
 
+Utilizes devcontainers for consistent development environments.
+
 ## Support
 
 For support, please open an issue or discussion on GitHub for this project.

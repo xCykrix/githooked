@@ -5,4 +5,4 @@ set -e
 rm -rf ./dist && mkdir -p dist
 
 # Build Project
-~/.gem/bin/bashly generate --env development
+/usr/local/rvm/gems/default/bin/bashly generate --env development

@@ -1,5 +1,7 @@
+#!/bin/bash
+
 build_githooked() {
-  cat <<'EOF' >$1
+  cat <<'EOF' >"$1"
 #!/usr/bin/env bash
 
 if [ -z "$SKIP_GIT_HOOKED_INIT" ]; then
@@ -43,7 +45,7 @@ EOF
 
 build_hook() {
   if ! [ -f "$1" ]; then
-    cat <<'EOF' >$1
+    cat <<'EOF' >"$1"
 #!/usr/bin/env bash
 
 # Configure the hook with these options.
@@ -66,7 +68,7 @@ EOF
 }
 
 build_gitignore() {
-  cat <<'EOF' >$1
+  cat <<'EOF' >"$1"
 *
 EOF
 }
