@@ -48,7 +48,7 @@ approve "../../githooked install"
 
 describe "githooked install - post verification"
 it "Should verify install and default hooks exists with ls."
-approve "ls .git-hooks # pre-verify"
+approve "ls .git-hooks/prepare-commit-msg # pre-verify"
 
 describe "githooked generate"
 it "Should create a 'post-commit' git-hook."
@@ -57,7 +57,7 @@ approve "../../githooked generate post-commit"
 
 describe "githook generate - post verification"
 it "Should verify 'post-commit' exists with ls."
-approve "ls .git-hooks # post-verify"
+approve "ls .git-hooks/post-commit # post-verify"
 
 context "Verifying Expected Failure"
 cd "$SCRIPT_DIR"
