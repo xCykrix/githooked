@@ -1,0 +1,11 @@
+githooked install - Install githooked runtime on the current path. Requires './.git/' to be present.
+
+Alias: in, i
+
+Usage:
+  githooked install
+  githooked install --help | -h
+
+Options:
+  --help, -h
+    Show this help

@@ -1,0 +1,10 @@
+githooked - Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
+
+Usage:
+  githooked [OPTIONS] COMMAND
+  githooked [COMMAND] --help | -h
+  githooked --version | -v
+
+Commands:
+  install    Install githooked runtime on the current path. Requires './.git/' to be present.
+  generate   Generate default githooked 'no-op' placeholder hooks.

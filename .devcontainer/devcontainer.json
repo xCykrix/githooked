@@ -1,0 +1,47 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+  "name": "Debian",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/ruby:1": {
+      "version": "latest"
+    }
+  },
+  "postCreateCommand": {
+    "bashly": "/usr/local/rvm/rubies/default/bin/gem install bashly"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.hotExit": "onExitAndWindowClose",
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "[json]": {
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[jsonc]": {
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "deno.enable": true,
+        "extensions.webWorker": true,
+        "extensions.ignoreRecommendations": true
+      },
+      "extensions": [
+        // Editor
+        "editorconfig.editorconfig",
+        // Language
+        "timonwong.shellcheck",
+        "foxundermoon.shell-format",
+        // IntelliCode
+        "VisualStudioExptTeam.vscodeintellicode",
+        "VisualStudioExptTeam.vscodeintellicode-completions",
+        "VisualStudioExptTeam.intellicode-api-usage-examples"
+      ]
+    }
+  },
+  "remoteUser": "root"
+}

@@ -1,0 +1,3 @@
+[1;32minfo[0m Preparing to generate selected hooks.
+[1;32minfo[0m Generating selected hooks...
+[1;32minfo[0m build_hook: '/workspaces/githooked/dist/*/post-commit'

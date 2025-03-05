@@ -1,3 +1,6 @@
+#!/bin/bash
+shopt -s extglob
+
 info "Installing 'githooked' to the current path..."
 
 # Validate '.git' exists.
@@ -51,7 +54,15 @@ trace "build_githooked: '$UTIL/git-hooked.sh'"
 build_githooked "$UTIL/git-hooked.sh"
 
 # Check if any hooks exist. If not, we will generate defaults.
-if [ -z "$(ls -A ./.git-hooks/ | grep -v _util)" ]; then
+GITHOOKED_HAS_DEFAULT_HOOK=0
+for HOOK_PATH in ./.git-hooks/*; do
+  if [ -f "$HOOK_PATH" ] && [[ ! "$HOOK_PATH" == *"_util"* ]]; then
+    trace "detect path '$HOOK_PATH'"
+    GITHOOKED_HAS_DEFAULT_HOOK=1
+    break
+  fi
+done
+if [ "$GITHOOKED_HAS_DEFAULT_HOOK" == "0" ]; then
   info "Generating default hooks."
   for HOOK in $(default_hooks); do
     trace "build_hook: '$HOOK'"
@@ -61,10 +72,12 @@ fi
 
 # Update permissions and set to execute.
 info "Setting file permissions for hooks."
-for HOOK in $(ls -A ./.git-hooks/ | grep -v _util); do
-  trace "chmod 755 (+x) '$GIT_HOOKS/$HOOK'."
-  chmod 755 "$GIT_HOOKS/$HOOK"
-  chmod +x "$GIT_HOOKS/$HOOK"
+for HOOK_PATH in ./.git-hooks/*; do
+  if [ -f "$PWD/$HOOK_PATH" ] && [[ ! "$HOOK_PATH" == *"_util"* ]]; then
+    trace "chmod 755 (+x) '$PWD/$HOOK_PATH'."
+    chmod 755 "$PWD/$HOOK_PATH"
+    chmod +x "$PWD/$HOOK_PATH"
+  fi
 done
 
 # Set 'core.hooksPath' to './.git-hooks'.

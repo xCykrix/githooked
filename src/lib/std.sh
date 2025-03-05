@@ -1,3 +1,5 @@
+#!/bin/bash
+
 info() {
   if [[ -z "${args[--quiet]}" || "${args[--quiet]}" -lt 1 ]]; then
     echo "$(green_bold info) $1"
@@ -5,7 +7,7 @@ info() {
 }
 
 trace() {
-  if [[ ! -z "${args[--trace]}" || "${args[--trace]}" -eq 1 ]]; then
+  if [[ -n "${args[--trace]}" || "${args[--trace]}" -eq 1 ]]; then
     echo "$(blue_bold trace) $1"
   fi
 }
