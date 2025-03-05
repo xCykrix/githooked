@@ -11,6 +11,9 @@ jobs:
     permissions:
       issues: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/spec/label.yml
       - uses: EndBug/label-sync@v2
         with:
           config-file: .github/spec/label.yml
