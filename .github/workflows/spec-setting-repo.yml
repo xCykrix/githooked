@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/spec/setting.yml
       - uses: actuarysailor/gha-repo-manager@v2
         with:
           action: apply
