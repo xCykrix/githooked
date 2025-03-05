@@ -1,0 +1,21 @@
+name: Build and Validate
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Deno Validation Action
+    steps:
+      # Setup
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      # Languages
+      - uses: devcontainers/ci@v0.3
+        with:
+          runCmd: make validate

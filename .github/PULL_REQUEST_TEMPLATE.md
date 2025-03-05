@@ -1,51 +1,35 @@
-# Pull Request
-
-## Summary and Information
-
-<!--
-Please include a summary of the changes and which issue is related. Reference
-your motivation and context to the issue. Please include additions or changes to
-dependencies for security analysis by other contributors.
-
-Fill in the issues related to this issue in their respective category.
--->
+## Describe Changes
 
 ...
 
-Referencing Issue(s): #
+## GitHub Issues Resolved
 
-Fixing Issue(s): #
+Fixes #(issue)
 
-## Summary of Testing
+## Commit Types
 
-To what extent did you test this pull request? Did any tests require
-modification to result in a passing state (breaking changes)?
+- [ ] Bug Fixes / Small Adjustments - No New Features (fix, chore, docs)
+- [ ] New Features / Large Adjustments with Backwards Compatability (feat, refactor)
+- [ ] Breaking Change - Existing Functionlity Updated without Backwards Compatability (feat!, fix!)
 
-I tested this PR by ... (description of testing methods)
+## Testing Coverage
 
-## Checklist Test Integrity
+- [ ] This pull request passes all existing automated tests.
+- [ ] I have added additional automated tests for code in this pull request.
 
-- [ ] Tests passed with no modification.
-- [ ] Tests passed with modification.
-- [ ] Tests are not currently passing.
-- [ ] Tests need to be added to exist for the case covered in this issue.
+## Documentation Coverage
 
-## Checklist Code Integrity
+- [ ] This pull request has been fully documented in the applicable code,
+      particularly dense sections.
+- [ ] This may require more/updated documentation on the Wiki.
 
-- [ ] The changes follow the style guidelines defined in the project.
-- [ ] I have performed a self-review of my code, including testing intentionally
-  incorrect states and information.
-- [ ] I have commented my code, particularly in hard to understand or complex
-  areas.
-- [ ] The changes have not generated any new errors or warning by
-  static-analysis tooling.
-- [ ] All dependant changes have been merged and published in downstream
-  modules.
-- [ ] To the best of my knowledge, all information in this pull request is
-  vulnerability free and well researched.
-    - [ ] This pull request may require more research or analysis of complex logic
-      or technology.
-    - [ ] This pull request contains regular expression addition or modifications
-      which may need verification.
-    - [ ] This pull request contains database logic which may need verification of
-      proper user-input sterilization.
+## Acknowledgements
+
+- [ ] The code of this Pull Request complies with automated styling and existing
+      code formatting.
+- [ ] I have performed a self-review of the code contained in this Pull Request
+      for consistency and accuracy.
+- [ ] Changes to the code have produced no additional static analysis issues.
+
+With the submission of this Pull Request, I agree to the Contribution
+Guidelines, Code of Conduct, and Security Policy.

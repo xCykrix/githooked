@@ -9,7 +9,7 @@ APPROVALS_DIR=$SCRIPT_DIR/approvals
 wget get.dannyb.co/approvals.bash -O approvals.bash -q
 source approvals.bash
 
-rm -r ../dist/tmp/
+rm -rf ../dist/tmp/
 mkdir -p ../dist/tmp/
 
 # Context: Verifying Help Function
