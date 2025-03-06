@@ -16,5 +16,4 @@ jobs:
         with:
           action: apply
           settings_file: .github/spec/setting.yml
-          repo: xCykrix/githooked
           token: ${{ secrets.GH_TOKEN }}
