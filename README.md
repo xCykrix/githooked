@@ -47,7 +47,7 @@ Examples:
 
 ## Contributing
 
-This project utilizes a Makefile to control the development, workflow, and distribution of the project. This project requires the Snap Store to be installed on your Linux Operating System. These projects are designed for development with Ubuntu Linux 22.04.
+This project utilizes a Makefile to control the development, workflow, and distribution of the project. Dev Container support is required and VSCode is recommended.
 
 When creating a clone, please execute the following command(s):
 
