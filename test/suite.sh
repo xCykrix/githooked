@@ -3,10 +3,12 @@
 BASE_DIR="$(dirname -- "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="$(pwd)/$BASE_DIR"
 echo "Suite: $(pwd)/$BASE_DIR"
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR" || exit 1
+# shellcheck disable=SC2034
 APPROVALS_DIR=$SCRIPT_DIR/approvals
 
 wget get.dannyb.co/approvals.bash -O approvals.bash -q
+# shellcheck disable=SC1091
 source approvals.bash
 
 rm -rf ../dist/tmp/
@@ -30,7 +32,7 @@ approve "../dist/githooked install --help"
 # Context: Verifying Actual Function
 context "Verifying Actual Function"
 TEMP_DIR=$(mktemp -d -p ../dist/tmp/)
-cd "$TEMP_DIR"
+cd "$TEMP_DIR" || exit 1
 
 # Region: githooked install - setup - start
 git init --quiet
@@ -60,9 +62,9 @@ it "Should verify 'post-commit' exists with ls."
 approve "ls .git-hooks/post-commit # post-verify"
 
 context "Verifying Expected Failure"
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR" || exit 1
 TEMP_DIR=$(mktemp -d -p ../dist/tmp/)
-cd "$TEMP_DIR"
+cd "$TEMP_DIR" || exit 1
 
 describe "githooked install - install fail"
 it "Should attempt to install and return an exit code."

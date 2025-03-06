@@ -3,18 +3,16 @@
 
 Tool | DevOps - Beta - Manage git hooks across your project with cross-platform support and mobility. Comfortably integrates with git to allow custom scripting. Designed for Bash 4.0 or compatible. Compatible with Git SCM (Git for Windows).
 
-Find more in-depth guidance and documentation at https://github.com/xCykrix/githooked/wiki
+Find more in-depth guidance and documentation at the [GitHub Wiki](https://github.com/xCykrix/githooked/wiki)
 
 ![GitHub License](https://img.shields.io/github/license/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=86400)
-![GitHub issues](https://img.shields.io/github/issues/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
+![GitHub Issues](https://img.shields.io/github/issues/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
 ![GitHub Discussions](https://img.shields.io/github/discussions/xCykrix/githooked?style=for-the-badge&logo=github&cacheSeconds=3600)
 
-## Installation
+## Installation / Usage
 
 https://github.com/xCykrix/githooked/wiki
-
-## Usage
 
 ```
 $ ./githooked --help
@@ -45,6 +43,10 @@ Examples:
   ./githooked generate prepare-commit-msg pre-commit pre-push
 ```
 
+## Support
+
+For support, please open an issue or reach out via Discord.
+
 ## Contributing
 
 This project utilizes a Makefile to control the development, workflow, and distribution of the project. Dev Container support is required and VSCode is recommended.
@@ -58,11 +60,9 @@ $ make build
 
 Application is built to `./dist/` when compiled by the `make build` task.
 
-Utilizes devcontainers for consistent development environments.
+## Releases
 
-## Support
-
-For support, please open an issue or discussion on GitHub for this project.
+Tag-based releases to GitHub have been automated. This project is only published to GitHub Releases.
 
 ## Acknowledgements
 

@@ -10,7 +10,7 @@
 # BASHLY_SETTINGS_PATH.
 
 # The path containing the bashly source files
-source_dir: src
+source_dir: source
 
 # The path to bashly.yml
 config_path: "%{source_dir}/bashly.yml"
