@@ -19,4 +19,3 @@ jobs:
             ./dist/githooked
             LICENSE
             README.md
-
