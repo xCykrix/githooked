@@ -1,0 +1,22 @@
+name: Automatic Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: devcontainers/ci@v0.3
+        with:
+          runCmd: make validate
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./dist/githooked
+            LICENSE
+            README.md
+
